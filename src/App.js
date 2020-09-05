@@ -6,27 +6,36 @@ function App() {
   const useFocus = () => {
     const htmlElRef = useRef(null)
     const setFocus = () => {htmlElRef.current &&  htmlElRef.current.focus()}
-
     return [ htmlElRef, setFocus ]
   }
 
   const [keyPress, setKeyPress] = useState('')
   const [inputField, setInputField] = useState([])
   const [inputRef, setInputFocus] = useFocus()
+  const [ipInfo, setIpInfo] = useState({})
+
+  const getIpAddress = () => {
+    fetch('https://ipapi.co/json').then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText)
+      }
+      return response.json()
+    }).then(data => {
+      console.log(data)
+      setIpInfo(data)
+    })
+  }
+
+  useEffect(() => {
+    getIpAddress()
+  }, [])
 
   const onKeyUp = event => {
     const value = event.target.value
-
     setKeyPress(value)
-
-    console.log(value)
 
     if (event.key === 'Enter' || event.keyCode === 13) {
       setInputField([...inputField, value])
-
-      console.log([...inputField, value])
-      console.log(inputField[inputField.length-1])
-
       setKeyPress('')
     }
   }
@@ -34,9 +43,15 @@ function App() {
   return (
     <div className="app" onClick={setInputFocus}>
       <div className="header">
-        <div className="welcome">welcome to sercan.inaler.com</div>
-        <div className="line">{new Date().toString()}</div>
-        <div className="line">{navigator.userAgent}</div>
+        <div className="welcome">Welcome to sercan's personal homepage (sercan.inaler.com)</div>
+        <div className="line">Date: {new Date().toString()}</div>
+        <div className="line">User agent: {navigator.userAgent}</div>
+        <div className="line">Screen Resolution: {window.screen.width}x{window.screen.height}px, Depth: {window.screen.pixelDepth}px</div>
+        {ipInfo.ip && <div>
+          <div className="line">Ip address: {ipInfo.ip}, Location: {ipInfo.postal}, {ipInfo.city}, {ipInfo.country_name}({ipInfo.latitude},{ipInfo.longitude})</div>
+          <div className="line">Provider: {ipInfo.org}, Supported languages: {ipInfo.languages}, Currency: {ipInfo.currency}({ipInfo.currency_name})</div>
+        </div>}
+        <div className="line" />
         <div className="line">Enter "help" for more information.</div>
       </div>
       {inputField.map((data, index) =>

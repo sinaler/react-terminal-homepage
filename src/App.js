@@ -40,34 +40,60 @@ function App() {
     }
   }
 
+  const result = data => {
+    const commandList = [
+      'help', 'list', 'source',
+      'email', 'cat', 'linkedin', 'clear', 'github', 'clock', 'date', 'echo', 'help', 'uname', 'whoami'
+    ];
+
+    switch(data) {
+      case 'list':
+        return(
+          commandList.map((command) => <span key={command} style={{marginRight: 12}}>{command}</span>)
+        )
+      case 'help':
+        return(
+          <div>
+            Welcome to Sercan's Homepage<br />
+            This project is made by React(v17) as a personal reference project.<br />
+            You can use 'list' command to get the list of available commands to use and discover the hidden sections of my website.<br />
+            There can be some limitations to access to all data.<br />
+            You will need authorization from me personally to access this sections.<br /><br />
+            Cheers<br />
+            Sercan
+          </div>
+        )
+      default:
+        return(data + ': command not found')
+    }
+  }
+
   return (
     <div className="app" onClick={setInputFocus}>
       <div className="header">
-        <div className="welcome">Welcome to sercan's personal homepage (sercan.inaler.com)</div>
+        <div className="welcome">Welcome to sercan's homepage (v2.0.3)</div>
         <div className="line">Date: {new Date().toString()}</div>
         <div className="line">User agent: {navigator.userAgent}</div>
         <div className="line">Screen Resolution: {window.screen.width}x{window.screen.height}px, Depth: {window.screen.pixelDepth}px</div>
-        {ipInfo.ip && <div>
-          <div className="line">Ip address: {ipInfo.ip}, Location: {ipInfo.postal}, {ipInfo.city}, {ipInfo.country_name}({ipInfo.latitude},{ipInfo.longitude})</div>
-          <div className="line">Provider: {ipInfo.org}, Supported languages: {ipInfo.languages}, Currency: {ipInfo.currency}({ipInfo.currency_name})</div>
-        </div>}
+        <div className="line">Ip address: {ipInfo.ip && <span>{ipInfo.ip}, Location: {ipInfo.postal}, {ipInfo.city}, {ipInfo.country_name}({ipInfo.latitude},{ipInfo.longitude})</span>}</div>
+        <div className="line">Provider: {ipInfo.ip && <span>{ipInfo.org}, Supported languages: {ipInfo.languages}, Currency: {ipInfo.currency}({ipInfo.currency_name})</span>}</div>
         <div className="line" />
-        <div className="line">Enter "help" for more information.</div>
+        <div className="line">Enter "help" for more information or "list" for command list.</div>
       </div>
       {inputField.map((data, index) =>
         <div key={data+index}>
-          <div className="line">
+          <div className="line split">
             <div className="user">[user@inaler.com] #</div>
             <div>{data}</div>
           </div>
 
-          {data !== '' && <div className="line">
-            <div className="result">{data}: commmand not found</div>
+          {data !== '' && <div className="line split">
+            <div className="result">{result(data)}</div>
           </div>}
         </div>
       )}
 
-      <div className="line">
+      <div className="line split">
         <div className="user">[user@inaler.com] #</div>
         <div>
           <input className="input"

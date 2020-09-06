@@ -21,7 +21,6 @@ function App() {
       }
       return response.json()
     }).then(data => {
-      console.log(data)
       setIpInfo(data)
     })
   }
@@ -42,26 +41,44 @@ function App() {
 
   const result = data => {
     const commandList = [
-      'help', 'list', 'source',
-      'email', 'cat', 'linkedin', 'clear', 'github', 'clock', 'date', 'echo', 'help', 'uname', 'whoami'
+      'help', 'list', 'clear', 'source', 'email', 'linkedin', 'github'/*, 'clock', 'date', 'echo', 'uname', 'whoami'*/
     ];
 
     switch(data) {
       case 'list':
         return(
-          commandList.map((command) => <span key={command} style={{marginRight: 12}}>{command}</span>)
+          commandList.map((command) => <span key={command} style={{paddingRight: 12}}>{command}</span>)
         )
       case 'help':
         return(
           <div>
-            Welcome to Sercan's Homepage<br />
+            Sercan's Homepage Help<br /><br />
             This project is made by React(v17) as a personal reference project.<br />
-            You can use 'list' command to get the list of available commands and it's up to you to discover the hidden and funny sections of my website.<br />
+            You can use "list" command to get the list of available commands and it's up to you to discover the hidden and funny sections of my website.<br />
             There can be limitations to access some data.<br />
             You will need authorization from me personally to access these sections.<br /><br />
-            Cheers<br />
+            Cheers,<br />
             Sercan
           </div>
+        )
+      case 'clear':
+        setInputField([])
+        break
+      case 'source':
+        return(
+          <div>Github repository: <a href="https://github.com/sinaler/react-terminal-homepage" rel="noopener noreferrer" target="_blank">React terminal homepage</a></div>
+        )
+      case 'email':
+        return(
+          <div><a href="mailto:sercan@gmail.com">sercan@gmail.com</a></div>
+        )
+      case 'linkedin':
+        return(
+          <div><a href="https://www.linkedin.com/in/sinaler"rel="noopener noreferrer" target="_blank">https://www.linkedin.com/in/sinaler</a></div>
+        )
+      case 'github':
+        return(
+          <div><a href="https://github.com/sinaler" rel="noopener noreferrer" target="_blank">https://github.com/sinaler</a></div>
         )
       default:
         return(data + ': command not found')

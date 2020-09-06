@@ -14,8 +14,8 @@
   margin-bottom: 20px;
 }
 
-span {
-
+a {
+  color: #fffc20
 }
 
 .line {
@@ -29,18 +29,19 @@ span {
 
 .user {
   color: #4eff05;
-  margin-right: 7px;
+  width: 156px;
 }
 
 .input {
   color: #fff;
   border: 0;
   background-color: #000;
-  width: 300px;
   font-size: 13px;
   padding: 0;
 }
 
 .result {
-  margin: 12px 0;
+  padding: 12px 0;
+  display: flex;
+  flex-wrap: wrap;
 }

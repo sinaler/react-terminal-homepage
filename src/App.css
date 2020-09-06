@@ -35,10 +35,10 @@ a {
 .input {
   color: #fff;
   border: 0;
-  background-color: #000;
   font-size: 13px;
   padding: 0;
   text-transform: lowercase;
+  background-color: transparent;
 }
 
 .result {

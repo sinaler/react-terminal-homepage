@@ -15,7 +15,7 @@ function App() {
   const [ipInfo, setIpInfo] = useState({})
 
   const getIpAddress = () => {
-    fetch('https://ipapi.co/json').then(response => {
+    fetch('https://api.ipfind.com/me?auth=c6db4632-ee7e-413a-a26d-bffcc39d574f').then(response => {
       if (!response.ok) {
         throw Error(response.statusText)
       }
@@ -56,9 +56,9 @@ function App() {
           <div>
             Welcome to Sercan's Homepage<br />
             This project is made by React(v17) as a personal reference project.<br />
-            You can use 'list' command to get the list of available commands to use and discover the hidden sections of my website.<br />
-            There can be some limitations to access to all data.<br />
-            You will need authorization from me personally to access this sections.<br /><br />
+            You can use 'list' command to get the list of available commands and it's up to you to discover the hidden and funny sections of my website.<br />
+            There can be limitations to access some data.<br />
+            You will need authorization from me personally to access these sections.<br /><br />
             Cheers<br />
             Sercan
           </div>
@@ -73,10 +73,10 @@ function App() {
       <div className="header">
         <div className="welcome">Welcome to sercan's homepage (v2.0.3)</div>
         <div className="line">Date: {new Date().toString()}</div>
-        <div className="line">User agent: {navigator.userAgent}</div>
         <div className="line">Screen Resolution: {window.screen.width}x{window.screen.height}px, Depth: {window.screen.pixelDepth}px</div>
-        <div className="line">Ip address: {ipInfo.ip && <span>{ipInfo.ip}, Location: {ipInfo.postal}, {ipInfo.city}, {ipInfo.country_name}({ipInfo.latitude},{ipInfo.longitude})</span>}</div>
-        <div className="line">Provider: {ipInfo.ip && <span>{ipInfo.org}, Supported languages: {ipInfo.languages}, Currency: {ipInfo.currency}({ipInfo.currency_name})</span>}</div>
+        <div className="line">Ip address: {ipInfo.ip_address && <span> {ipInfo.ip_address}, Supported languages: {ipInfo.languages && ipInfo.languages.map((language, index) => <span key={language}> {language}</span>)}, Currency: {ipInfo.currency}</span>}</div>
+        <div className="line">Location: {ipInfo.ip_address && <span>{ipInfo.city}({ipInfo.region_code}), {ipInfo.country}, {ipInfo.continent}, Coordinates: {ipInfo.latitude}, {ipInfo.longitude}</span>}</div>
+        <div className="line">User agent: {navigator.userAgent}</div>
         <div className="line" />
         <div className="line">Enter "help" for more information or "list" for command list.</div>
       </div>

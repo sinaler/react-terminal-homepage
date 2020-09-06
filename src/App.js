@@ -16,9 +16,6 @@ function App() {
 
   const getIpAddress = () => {
     fetch('https://api.ipfind.com/me?auth=c6db4632-ee7e-413a-a26d-bffcc39d574f').then(response => {
-      if (!response.ok) {
-        throw Error(response.statusText)
-      }
       return response.json()
     }).then(data => {
       setIpInfo(data)
@@ -34,14 +31,14 @@ function App() {
     setKeyPress(value)
 
     if (event.key === 'Enter' || event.keyCode === 13) {
-      setInputField([...inputField, value])
+      setInputField([...inputField, value.toLowerCase()])
       setKeyPress('')
     }
   }
 
   const result = data => {
     const commandList = [
-      'help', 'list', 'clear', 'source', 'email', 'linkedin', 'github'/*, 'clock', 'date', 'echo', 'uname', 'whoami'*/
+      'help', 'list', 'clear', 'source', 'email', 'linkedin', 'github', 'cv'/*, 'clock', 'date', 'echo', 'uname', 'whoami'*/
     ];
 
     switch(data) {
@@ -56,7 +53,7 @@ function App() {
             This project is made by React(v17) as a personal reference project.<br />
             You can use "list" command to get the list of available commands and it's up to you to discover the hidden and funny sections of my website.<br />
             There can be limitations to access some data.<br />
-            You will need authorization from me personally to access these sections.<br /><br />
+            You may need authorization from me personally to access limit sections.<br /><br />
             Cheers,<br />
             Sercan
           </div>
@@ -79,6 +76,10 @@ function App() {
       case 'github':
         return(
           <div><a href="https://github.com/sinaler" rel="noopener noreferrer" target="_blank">https://github.com/sinaler</a></div>
+        )
+      case 'cv':
+        return(
+          <div><a href="/cv-sercan-inaler-2020-frontend.pdf" rel="noopener noreferrer" target="_blank">cv-sercan-inaler-2020-frontend.pdf</a></div>
         )
       default:
         return(data + ': command not found')
@@ -114,11 +115,11 @@ function App() {
         <div className="user">[user@inaler.com] #</div>
         <div>
           <input className="input"
-                 autoFocus
                  onKeyUp={onKeyUp}
                  onChange={onKeyUp}
                  value={keyPress}
                  ref={inputRef}
+                 autoFocus
           />
         </div>
       </div>

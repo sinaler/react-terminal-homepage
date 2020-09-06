@@ -38,6 +38,7 @@ a {
   background-color: #000;
   font-size: 13px;
   padding: 0;
+  text-transform: lowercase;
 }
 
 .result {

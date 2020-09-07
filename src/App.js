@@ -12,13 +12,23 @@ function App() {
   const [keyPress, setKeyPress] = useState('')
   const [inputField, setInputField] = useState([])
   const [inputRef, setInputFocus] = useFocus()
-  const [ipInfo, setIpInfo] = useState({})
+  const [ip, setIp] = useState({})
+  const [weather, setWeather] = useState({})
 
   const getIpAddress = () => {
     fetch('https://api.ipfind.com/me?auth=c6db4632-ee7e-413a-a26d-bffcc39d574f').then(response => {
       return response.json()
     }).then(data => {
-      setIpInfo(data)
+      setIp(data)
+      getWeather(data.latitude, data.longitude)
+    })
+  }
+
+  const getWeather = (latitude, longitude) => {
+    fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=metric&appid=b9b37addc63e0e214d730cf72105ce75').then(response => {
+      return response.json()
+    }).then(data => {
+      setWeather(data)
     })
   }
 
@@ -89,19 +99,20 @@ function App() {
   return (
     <div className="app" onClick={setInputFocus}>
       <div className="header">
-        <div className="welcome">Welcome to sercan's homepage (v2.0.3)</div>
-        <div className="line">Date: {new Date().toString()}</div>
-        <div className="line">Screen Resolution: {window.screen.width}x{window.screen.height}px, Depth: {window.screen.pixelDepth}px</div>
-        <div className="line">Ip address: {ipInfo.ip_address && <span> {ipInfo.ip_address}, Supported languages: {ipInfo.languages && ipInfo.languages.map((language, index) => <span key={language}> {language}</span>)}, Currency: {ipInfo.currency}</span>}</div>
-        <div className="line">Location: {ipInfo.ip_address && <span>{ipInfo.city}({ipInfo.region_code}), {ipInfo.country}, {ipInfo.continent}, Coordinates: {ipInfo.latitude}, {ipInfo.longitude}</span>}</div>
-        <div className="line">User agent: {navigator.userAgent}</div>
+        <div className="welcome">Welcome to sercan's homepage (v2.1.3)</div>
+        <div className="line"><strong>Date:</strong> {new Date().toString()}</div>
+        <div className="line"><strong>Screen Resolution:</strong> {window.screen.width}x{window.screen.height}px, <strong>Depth:</strong> {window.screen.pixelDepth}px</div>
+        <div className="line"><strong>Platform:</strong> {navigator.platform}, <strong>User agent:</strong> {navigator.userAgent}</div>
+        <div className="line"><strong>Ip address:</strong> {ip.ip_address && <span> {ip.ip_address}, <strong>Local languages:</strong> {ip.languages && ip.languages.map((language, index) => <span key={language}> {language}</span>)}, Currency: {ip.currency}</span>}</div>
+        <div className="line"><strong>Location:</strong> {ip.ip_address && <span>{ip.city}({ip.region_code}), {ip.country}, {ip.continent}, <strong>Coordinates:</strong> {ip.latitude}, {ip.longitude}</span>}</div>
+        <div className="line"><strong>Weather:</strong> {weather.current && <span>Temp: {weather.current.temp}C, Feels like: {weather.current.feels_like}C, Humidity: {weather.current.humidity}%, Wind: {weather.current.wind_speed}m/s, UV: {weather.current.uvi}</span>}</div>
         <div className="line" />
-        <div className="line">Enter "help" for more information or "list" for command list.</div>
+        <div className="line">Enter <strong>"help"</strong> for more information or <strong>"list"</strong> for command list.</div>
       </div>
       {inputField.map((data, index) =>
         <div key={data+index}>
           <div className="line split">
-            <div className="user">[user@inaler.com] #</div>
+            <div className="user">[user@inaler.com]&nbsp;#</div>
             <div>{data}</div>
           </div>
 
@@ -112,7 +123,7 @@ function App() {
       )}
 
       <div className="line split">
-        <div className="user">[user@inaler.com] #</div>
+        <div className="user">[user@inaler.com]&nbsp;#</div>
         <div>
           <input className="input"
                  onKeyUp={onKeyUp}

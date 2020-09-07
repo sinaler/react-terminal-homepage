@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
+import {openWeatherMapKey, ipFindKey} from './config'
 import './App.css';
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
   const [weather, setWeather] = useState({})
 
   const getIpAddress = () => {
-    fetch('https://api.ipfind.com/me?auth=c6db4632-ee7e-413a-a26d-bffcc39d574f').then(response => {
+    fetch('https://api.ipfind.com/me?auth=' + ipFindKey).then(response => {
       return response.json()
     }).then(data => {
       setIp(data)
@@ -25,7 +26,7 @@ function App() {
   }
 
   const getWeather = (latitude, longitude) => {
-    fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=metric&appid=b9b37addc63e0e214d730cf72105ce75').then(response => {
+    fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=metric&appid=' + openWeatherMapKey).then(response => {
       return response.json()
     }).then(data => {
       setWeather(data)

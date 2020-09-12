@@ -14,10 +14,6 @@
   margin-bottom: 20px;
 }
 
-a {
-  color: #fffc20
-}
-
 .line {
   min-height: 15px;
   line-height: 18px;
@@ -25,6 +21,27 @@ a {
 
 .line.split {
   display: flex;
+}
+
+.small {
+  font-size: 13px;
+}
+
+a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a {
+  color: white;
+}
+
+button {
+  cursor: pointer;
+  background-color: #3c3c3c;
+  border: 0;
+  color: white;
+  padding: 1px 4px;
 }
 
 .user {

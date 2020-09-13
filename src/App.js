@@ -3,6 +3,11 @@ import {openWeatherMapKey, ipFindKey} from './config'
 import './App.css';
 
 function App() {
+  const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+  }
 
   const useFocus = () => {
     const htmlElRef = useRef(null)
@@ -44,23 +49,24 @@ function App() {
     if (event.key === 'Enter' || event.keyCode === 13) {
       setInputField([...inputField, value.toLowerCase()])
       setKeyPress('')
+      scrollToBottom()
     }
   }
 
   const result = data => {
     const commandList = {
-      info: 'Display information about the project',
-      help: 'Display help about the commands',
-      commands: 'List the full list of commands',
-      clear: 'Clears the screen',
-      reload: 'Reloads the whole project',
-      source: 'Show the source file of the project',
-      email: 'Display email of mine',
-      linkedin: 'Display LinkedIn link address of my profile',
-      github: 'Display Github link address of my profile',
-      cv: 'Display pdf version CV/Resume of mine',
-      /*ip: 'Show detailed IP information of you',
-      weather: 'Show detailed Weather information of you based on your IP',*/
+      info: { text: 'Display information about the project', section: 'System Commands'},
+      help: { text: 'Display help about the commands'},
+      commands: { text: 'List the full list of commands'},
+      clear: { text: 'Clears the screen'},
+      reload: { text: 'Reloads the whole project'},
+      source: { text: 'Show the source file of the project', section: 'Profile Commands'},
+      email: { text: 'Display email of mine'},
+      linkedin: { text: 'Display LinkedIn link address of my profile'},
+      github: { text: 'Display Github link address of my profile'},
+      cv: { text: 'Display pdf version CV/Resume of mine'},
+      ip: { text: 'Show detailed IP information of you', section: 'External API Commands'},
+      weather: { text: 'Show detailed Weather information of you based on your IP'},
     }
 
     switch(data) {
@@ -72,12 +78,15 @@ function App() {
         )
       case 'help':
         return(
-          Object.keys(commandList).map((command) => <div key={command} style={{width: '100%'}}>
-            <span style={{width: '75px', display: 'inline-block', textAlign: 'right', marginRight: '5px'}}>
-              <button onClick={() => setInputField([...inputField, command])} style={{margin: '3px 0 3px 0'}}>{command}</button>
-            </span>
-            <span>{commandList[command]}</span>
-          </div>)
+          <div style={{marginTop: '-14px'}}>
+            {Object.keys(commandList).map((command) => <div key={command} style={{width: '100%'}}>
+              {commandList[command].section && <div style={{fontWeight: 'bold', paddingLeft: '85px', marginTop: '10px'}}>{commandList[command].section}</div> }
+              <span style={{width: '75px', display: 'inline-block', textAlign: 'right', marginRight: '10px'}}>
+                <button onClick={() => setInputField([...inputField, command])} style={{margin: '2px 0 3px 0'}}>{command}</button>
+              </span>
+              <span>{commandList[command].text}</span>
+            </div>)}
+          </div>
         )
       case 'info':
         return(
@@ -118,6 +127,30 @@ function App() {
       case 'cv':
         return(
           <div><a href="/cv-sercan-inaler-2020-frontend.pdf" rel="noopener noreferrer" target="_blank">cv-sercan-inaler-2020-frontend.pdf</a></div>
+        )
+      case 'ip':
+        return(
+          <div>
+            {Object.keys(ip).map((key) => <div key={key} style={{width: '100%'}}>
+              <span style={{width: '115px', display: 'inline-block', textAlign: 'right', marginRight: '10px'}}>
+                {key.replace('_',' ').replace(/\b\w/g, c => c.toUpperCase())}:
+              </span>
+              <span>{ip[key]}</span>
+            </div>)}
+          </div>
+        )
+      case 'weather':
+        return(
+          <div>
+            {Object.keys(weather.current).map((key) => (
+              key !== 'weather' && (<div key={key} style={{width: '100%'}}>
+              <span style={{width: '115px', display: 'inline-block', textAlign: 'right', marginRight: '10px'}}>
+                {key.replace('_',' ').replace(/\b\w/g, c => c.toUpperCase())}:
+              </span>
+              <span>{weather.current[key]}</span>
+            </div>)
+            ))}
+          </div>
         )
       default:
         return(data + ': command not found')
@@ -162,6 +195,7 @@ function App() {
           />
         </div>
       </div>
+      <div ref={messagesEndRef} />
     </div>
   );
 }

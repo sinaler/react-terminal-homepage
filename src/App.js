@@ -5,10 +5,6 @@ import './App.css';
 function App() {
   const messagesEndRef = useRef(null)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
-  }
-
   const useFocus = () => {
     const htmlElRef = useRef(null)
     const setFocus = () => {htmlElRef.current &&  htmlElRef.current.focus()}
@@ -49,7 +45,6 @@ function App() {
     if (event.key === 'Enter' || event.keyCode === 13) {
       setInputField([...inputField, value.toLowerCase()])
       setKeyPress('')
-      scrollToBottom()
     }
   }
 
@@ -156,6 +151,12 @@ function App() {
         return(data + ': command not found')
     }
   }
+
+  const updateScroll = () => {
+    window.scrollTo(0,document.body.scrollHeight)
+  }
+
+  setInterval(updateScroll,400)
 
   return (
     <div className="app" onClick={setInputFocus}>

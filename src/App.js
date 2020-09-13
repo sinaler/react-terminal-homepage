@@ -11,6 +11,12 @@ function App() {
     return [ htmlElRef, setFocus ]
   }
 
+  const updateScroll = () => {
+    window.scrollTo(0,document.body.scrollHeight)
+  }
+
+  setTimeout(updateScroll,250)
+
   const [keyPress, setKeyPress] = useState('')
   const [inputField, setInputField] = useState([])
   const [inputRef, setInputFocus] = useFocus()
@@ -19,11 +25,13 @@ function App() {
   const [weather, setWeather] = useState({})
 
   const getWeather = (latitude, longitude) => {
-    fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=metric&appid=' + openWeatherMapKey).then(response => {
-      return response.json()
-    }).then(data => {
-      setWeather(data)
-    })
+    if (latitude && longitude) {
+      fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=metric&appid=' + openWeatherMapKey).then(response => {
+        return response.json()
+      }).then(data => {
+        setWeather(data)
+      })
+    }
   }
 
   useEffect(() => {
@@ -35,16 +43,32 @@ function App() {
         getWeather(data.latitude, data.longitude)
       })
     }
-    getIpAddress()
+
+    if (window.location.hostname !== 'localhost') {
+      getIpAddress()
+    }
+
   }, [])
 
   const onKeyUp = event => {
-    const value = event.target.value
+    const value = event.target.value.toLowerCase()
     setKeyPress(value)
 
     if (event.key === 'Enter' || event.keyCode === 13) {
-      setInputField([...inputField, value.toLowerCase()])
+      setInputField([...inputField, value])
       setKeyPress('')
+
+      if (value === 'getip') {
+        fetch('https://api.ipfind.com/me?auth=' + ipFindKey).then(response => {
+          return response.json()
+        }).then(data => {
+          setIp(data)
+        })
+      }
+
+      if (value === 'getweather') {
+        getWeather(ip.latitude, ip.longitude)
+      }
     }
   }
 
@@ -60,8 +84,11 @@ function App() {
       linkedin: { text: 'Display LinkedIn link address of my profile'},
       github: { text: 'Display Github link address of my profile'},
       cv: { text: 'Display pdf version CV/Resume of mine'},
-      ip: { text: 'Show detailed IP information of you', section: 'External API Commands'},
-      weather: { text: 'Show detailed Weather information of you based on your IP'},
+      ip: { text: 'Show your IP address', section: 'External API Commands'},
+      location: { text: 'Show detailed Location information'},
+      weather: { text: 'Show current Weather Forecast based on your IP'},
+      getip: { text: 'Fetches new IP address', hidden: true},
+      getweather: { text: 'Fetches new Weather Forecast address', hidden: true},
     }
 
     switch(data) {
@@ -75,9 +102,9 @@ function App() {
         return(
           <div style={{marginTop: '-14px'}}>
             {Object.keys(commandList).map((command) => <div key={command} style={{width: '100%'}}>
-              {commandList[command].section && <div style={{fontWeight: 'bold', paddingLeft: '85px', marginTop: '10px'}}>{commandList[command].section}</div> }
-              <span style={{width: '75px', display: 'inline-block', textAlign: 'right', marginRight: '10px'}}>
-                <button onClick={() => setInputField([...inputField, command])} style={{margin: '2px 0 3px 0'}}>{command}</button>
+              {commandList[command].section && <div style={{fontWeight: 'bold', paddingLeft: '100px', marginTop: '10px'}}>{commandList[command].section}</div> }
+              <span style={{width: '90px', display: 'inline-block', textAlign: 'right', marginRight: '10px'}}>
+                <button onClick={() => setInputField([...inputField, command])} style={{margin: '2px 0 2px 0'}}>{command}</button>
               </span>
               <span>{commandList[command].text}</span>
             </div>)}
@@ -125,6 +152,12 @@ function App() {
         )
       case 'ip':
         return(
+          <div style={{width: '100%'}}>
+            <span>{ip.ip_address}</span>
+          </div>
+        )
+      case 'location':
+        return(
           <div>
             {Object.keys(ip).map((key) => <div key={key} style={{width: '100%'}}>
               <span style={{width: '115px', display: 'inline-block', textAlign: 'right', marginRight: '10px'}}>
@@ -137,7 +170,7 @@ function App() {
       case 'weather':
         return(
           <div>
-            {Object.keys(weather.current).map((key) => (
+            {weather && weather.current && Object.keys(weather.current).map((key) => (
               key !== 'weather' && (<div key={key} style={{width: '100%'}}>
               <span style={{width: '115px', display: 'inline-block', textAlign: 'right', marginRight: '10px'}}>
                 {key.replace('_',' ').replace(/\b\w/g, c => c.toUpperCase())}:
@@ -147,16 +180,22 @@ function App() {
             ))}
           </div>
         )
+      case 'getip':
+        return(
+          <div style={{width: '100%'}}>
+            <span>New IP Fetched</span>
+          </div>
+        )
+      case 'getweather':
+        return(
+          <div style={{width: '100%'}}>
+            <span>New Weather Fetched</span>
+          </div>
+        )
       default:
         return(data + ': command not found')
     }
   }
-
-  const updateScroll = () => {
-    window.scrollTo(0,document.body.scrollHeight)
-  }
-
-  setInterval(updateScroll,400)
 
   return (
     <div className="app" onClick={setInputFocus}>

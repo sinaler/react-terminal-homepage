@@ -30,9 +30,6 @@
 a {
   text-decoration: underline;
   cursor: pointer;
-}
-
-a {
   color: white;
 }
 
@@ -42,6 +39,7 @@ button {
   border: 0;
   color: white;
   padding: 1px 4px;
+  font-size: 13px;
 }
 
 .user {
@@ -62,4 +60,14 @@ button {
   padding: 12px 0;
   display: flex;
   flex-wrap: wrap;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-left {
+  width: 90px;
+  text-align: right;
+  margin-right: 10px;
 }

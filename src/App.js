@@ -18,8 +18,6 @@ const App = () => {
     window.scrollTo(0,document.body.scrollHeight)
   }
 
-  setTimeout(updateScroll,250)
-
   const [keyPress, setKeyPress] = useState('')
   const [inputField, setInputField] = useState([])
   const [inputRef, setInputFocus] = useFocus()
@@ -85,6 +83,8 @@ const App = () => {
       if (value === 'get weather') {
         getWeather(ip.latitude, ip.longitude)
       }
+
+      setTimeout(updateScroll,150)
     }
   }
 

@@ -4,7 +4,7 @@ import Commands from './components/Commands'
 import './App.css';
 
 const App = () => {
-  const version = '2.0.7'
+  const version = '2.0.8'
 
   const messagesEndRef = useRef(null)
 
@@ -26,6 +26,9 @@ const App = () => {
   const [showHeader, setShowHeader] = useState(true)
   const [ip, setIp] = useState({})
   const [weather, setWeather] = useState({})
+  const [dateTime, setDateTime] = useState('')
+
+  setInterval(() => setDateTime(new Date().toString().slice(0, -12)),1000)
 
   const getWeather = (latitude, longitude) => {
     if (latitude && longitude) {
@@ -86,10 +89,10 @@ const App = () => {
   }
 
   return (
-    <div className="app" onClick={setInputFocus}>
+    <div className="app">
       {showHeader && <div className="header">
         <div className="welcome">Welcome to Sercan's Homepage <span className="small">(v{version})</span></div>
-        <div className="line"><strong>Date:</strong> {new Date().toString()}</div>
+        <div className="line"><strong>Date:</strong> {dateTime}</div>
         <div className="line"><strong>Screen Resolution:</strong> {window.screen.width}x{window.screen.height}px, <strong>Depth:</strong> {window.screen.pixelDepth}px</div>
         <div className="line"><strong>Platform:</strong> {navigator.platform}, <strong>User agent:</strong> {navigator.userAgent}</div>
         <div className="line"><strong>Ip address:</strong> {ip.ip_address && <span> {ip.ip_address}, <strong>Local languages:</strong> {ip.languages && ip.languages.map((language, index) => <span key={language}> {language}</span>)}, <strong>Currency:</strong> {ip.currency}</span>}</div>
@@ -99,7 +102,7 @@ const App = () => {
         <div className="line">Enter <button onClick={() => setInputField([...inputField, 'info'])}>info</button> for more information or <button onClick={() => setInputField([...inputField, 'help'])}>help</button>/<button onClick={() => setInputField([...inputField, 'commands'])}>commands</button> for command list.</div>
       </div>}
       {inputField.map((command, index) =>
-        <div key={command + index}>
+        <div key={command + index} style={{marginTop: '15px'}}>
           <div className="line split">
             <div className="user">[user@inaler.com]&nbsp;#</div>
             <div>{command}</div>
@@ -113,13 +116,14 @@ const App = () => {
                 setInputField={setInputField}
                 ip={ip}
                 weather={weather}
+                dateTime={dateTime}
               />
             </div>
           </div>}
         </div>
       )}
 
-      <div className="line split" style={{ paddingBottom: 20 }}>
+      <div className="line split" style={{ paddingBottom: 15, paddingTop: 15 }} onClick={setInputFocus}>
         <div className="user">[user@inaler.com]&nbsp;#</div>
         <div>
           <input className="input"

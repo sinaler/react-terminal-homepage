@@ -8,6 +8,13 @@ const History = (
       <div style={{fontWeight: 'bold'}}>Development History</div>
     </div>
     <div className="flex">
+      <div className="flex-left">2.0.8</div>
+      <div>
+        - Added date & time commands,<br />
+        - Improved focus on click event
+      </div>
+    </div>
+    <div className="flex">
       <div className="flex-left">2.0.7</div>
       <div>
         - Added history<br />
@@ -59,6 +66,18 @@ const History = (
       <div>
         - Initialised the new Project<br />
         - Switched to React (v17) from jQuery
+      </div>
+    </div>
+    <div className="flex">
+      <div className="flex-left">Todo's</div>
+      <div>
+        - Add screen, platform commands<br />
+        - Add loaders<br />
+        - Add e-mail API<br />
+        - Add picture API<br />
+        - Add color change<br />
+        - Align flex tables<br />
+        - Expose commands in history<br />
       </div>
     </div>
   </div>

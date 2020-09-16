@@ -10,6 +10,7 @@ const Commands = props => {
     clear: { text: 'Clears the screen'},
     reload: { text: 'Reloads the whole project'},
     history: { text: 'Shows the version history'},
+    date: { text: 'Shows the date&time'},
     source: { text: 'Show the source file of the project', section: 'Profile Commands'},
     email: { text: 'Display email of mine'},
     linkedin: { text: 'Display LinkedIn link address of my profile'},
@@ -55,6 +56,8 @@ const Commands = props => {
       )
     case 'history':
       return(History)
+    case 'date':
+      return(props.dateTime)
     case 'source':
       return(
         <div>Github repository: <a href="https://github.com/sinaler/react-terminal-homepage" rel="noopener noreferrer" target="_blank">https://github.com/sinaler/react-terminal-homepage</a></div>

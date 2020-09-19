@@ -33,12 +33,17 @@ const Commands = props => {
     case 'help':
       return(
         <div style={{marginTop: '-14px'}}>
-          {Object.keys(commandList).map((command) => <div key={command} style={{width: '100%'}}>
-            {commandList[command].section && <div style={{fontWeight: 'bold', paddingLeft: '110px', marginTop: '10px'}}>{commandList[command].section}</div> }
-            <span style={{width: '100px', display: 'inline-block', textAlign: 'right', marginRight: '10px'}}>
-                <button onClick={() => props.handleButtonClick([...props.inputField, command])} style={{margin: '2px 0 2px 0'}}>{command}</button>
-              </span>
-            <span>{commandList[command].text}</span>
+          {Object.keys(commandList).map((command) => <div key={command}>
+            {commandList[command].section && <div className="flex">
+              <div className="flex-left" />
+              <div className="flex-right bold" style={{margin: '6px 0 4px'}}>{commandList[command].section}</div>
+            </div> }
+            <div className="flex" >
+              <div className="flex-left">
+                  <button onClick={() => props.handleButtonClick([...props.inputField, command])} style={{margin: '0 0 4px 0'}}>{command}</button>
+                </div>
+              <div className="flex-right">{commandList[command].text}</div>
+            </div>
           </div>)}
         </div>
       )

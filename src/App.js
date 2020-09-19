@@ -61,7 +61,7 @@ const App = () => {
   }, [])
 
   const handleButtonClick = (value) => {
-    setTimeout(updateScroll,200)
+    setTimeout(updateScroll,150)
     setInputField(value)
   }
 
@@ -95,14 +95,14 @@ const App = () => {
         getWeather(ip.latitude, ip.longitude)
       }
 
-      setTimeout(updateScroll,200)
+      setTimeout(updateScroll,150)
     }
   }
 
   return (
     <div className="app" onClick={setInputFocus}>
       {showHeader && <div className="header">
-        <div className="welcome">Welcome to Sercan's Homepage <span className="small">(v{version})</span></div>
+        <div className="welcome">Welcome to Sercan's Homepage <span>(v{version})</span></div>
         <div className="line"><strong>Date:</strong> {dateTime}</div>
         <div className="line"><strong>Screen Resolution:</strong> {window.screen.width}x{window.screen.height}px, <strong>Depth:</strong> {window.screen.pixelDepth}px</div>
         <div className="line"><strong>Platform:</strong> {navigator.platform}, <strong>User agent:</strong> {navigator.userAgent}</div>
@@ -111,13 +111,13 @@ const App = () => {
         <div className="line"><strong>Weather:</strong> {weather.current && <span>Temp: {weather.current.temp}C, Feels like: {weather.current.feels_like}C, Humidity: {weather.current.humidity}%, Wind: {weather.current.wind_speed}m/s, UV: {weather.current.uvi}</span>}</div>
         <div className="line" />
         <div className="line">
-          Enter <button onClick={() => handleButtonClick([...inputField, 'info'])}>info</button> for more information or <button onClick={() => handleButtonClick([...inputField, 'help'])}>help</button>/<button onClick={() => handleButtonClick([...inputField, 'commands'])}>commands</button> for command list.
+          Enter <button onClick={() => handleButtonClick([...inputField, 'info'])}>info</button> for more information or <button onClick={() => handleButtonClick([...inputField, 'help'])}>help</button> & <button onClick={() => handleButtonClick([...inputField, 'commands'])}>commands</button> for command list.
         </div>
       </div>}
       {inputField.map((command, index) =>
         <div key={command + index} style={{marginTop: '15px'}}>
           <div className="line split">
-            <div className="user">[user@inaler.com]&nbsp;#</div>
+            <div className="user">[user@inaler.com]<span style={{marginLeft: '5px'}}>#</span></div>
             <div>{command}</div>
           </div>
 
@@ -136,8 +136,8 @@ const App = () => {
         </div>
       )}
 
-      <div className="line split" style={{ paddingBottom: 15, paddingTop: 15 }}>
-        <div className="user">[user@inaler.com]&nbsp;#</div>
+      <div className="line split" style={{ paddingBottom: 25, paddingTop: 15 }}>
+        <div className="user">[user@inaler.com]<span style={{marginLeft: '5px'}}>#</span></div>
         <div>
           <input className="input"
                  onKeyUp={onKeyUp}

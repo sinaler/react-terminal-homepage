@@ -17,6 +17,8 @@ body {
   font-family: 'Courier New', Consolas, monospace;
   outline: none;
   box-sizing: border-box;
+  font-size: 13px;
+  line-height: 16px;
 }
 
 html, body, #root, .app {

@@ -1,7 +1,6 @@
 .app {
   padding: 15px;
   text-align: left;
-  font-size: 13px;
 }
 
 .header .welcome {
@@ -11,15 +10,10 @@
 
 .line {
   min-height: 15px;
-  line-height: 18px;
 }
 
 .line.split {
   display: flex;
-}
-
-.small {
-  font-size: 13px;
 }
 
 a {
@@ -30,16 +24,25 @@ a {
 
 button {
   cursor: pointer;
-  background-color: #444;
-  border: 0;
+  background-color: #333;
   color: white;
-  padding: 1px 4px;
-  font-size: 13px;
+  padding: 0 3px;
+  border-width: 1px;
+  line-height: 16px;
+  margin-bottom: 1px;
+}
+
+button:hover {
+  background-color: #444;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .user {
   color: #4eff05;
-  width: 157px;
+  width: 152px;
 }
 
 .input {
@@ -59,10 +62,16 @@ button {
 
 .flex {
   display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .flex-left {
-  width: 90px;
+  width: 95px;
   text-align: right;
   margin-right: 10px;
+}
+
+.flex-right {
+  flex: 1;
 }

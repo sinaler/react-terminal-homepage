@@ -27,9 +27,8 @@ button {
   background-color: #333;
   color: white;
   padding: 0 3px;
-  border-width: 1px;
-  line-height: 16px;
-  margin-bottom: 1px;
+  border: 0;
+  height: 15px;
 }
 
 button:hover {

@@ -4,9 +4,7 @@ import Commands from './components/Commands'
 import './App.css';
 
 const App = () => {
-  const version = '2.0.8'
-
-  const messagesEndRef = useRef(null)
+  const version = '2.1.0'
 
   const useFocus = () => {
     const htmlElRef = useRef(null)
@@ -30,6 +28,7 @@ const App = () => {
   const [showHeader, setShowHeader] = useState(true)
   const [ip, setIp] = useState({})
   const [weather, setWeather] = useState({})
+  const [color, setColor] = useState(JSON.parse(localStorage.getItem('color')) || {text: '#FFFFFF', background: '#000000'})
   const [dateTime, setDateTime] = useState('')
 
   setInterval(() => setDateTime(new Date().toString().slice(0, -12)),1000)
@@ -100,7 +99,7 @@ const App = () => {
   }
 
   return (
-    <div className="app" onClick={setInputFocus}>
+    <div className="app" onClick={setInputFocus} style={{backgroundColor: color.background, color: color.text}}>
       {showHeader && <div className="header">
         <div className="welcome">Welcome to Sercan's Homepage <span>(v{version})</span></div>
         <div className="line"><strong>Date:</strong> {dateTime}</div>
@@ -130,6 +129,8 @@ const App = () => {
                 ip={ip}
                 weather={weather}
                 dateTime={dateTime}
+                color={color}
+                setColor={setColor}
               />
             </div>
           </div>}
@@ -148,7 +149,6 @@ const App = () => {
           />
         </div>
       </div>
-      <div ref={messagesEndRef} />
     </div>
   );
 }

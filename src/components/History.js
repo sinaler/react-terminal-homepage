@@ -8,11 +8,12 @@ const History = (
       <div className="flex-right bold">Development History</div>
     </div>
     <div className="flex">
-      <div className="flex-left">2.0.8</div>
+      <div className="flex-left">2.1.0</div>
       <div className="flex-right">
         - Added date & time commands,<br />
         - Improved focus on click event<br />
         - Aligned flex tables<br />
+        - Add color change<br />
       </div>
     </div>
     <div className="flex">
@@ -71,11 +72,10 @@ const History = (
     <div className="flex">
       <div className="flex-left">Todo's</div>
       <div className="flex-right">
-        - Add screen, platform commands<br />
+        - Support console commands<br />
         - Add loaders<br />
         - Add e-mail API<br />
         - Add picture API<br />
-        - Add color change<br />
         - Expose commands in history<br />
         - Add Typescript
         - Add mobile design

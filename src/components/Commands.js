@@ -1,6 +1,8 @@
 import React from 'react'
-import '../App.css';
-import History from "./History"
+import '../App.css'
+import History from './History'
+import { ChromePicker } from 'react-color'
+
 
 const Commands = props => {
   const commandList = {
@@ -16,6 +18,7 @@ const Commands = props => {
     linkedin: { text: 'Display LinkedIn link address of my profile'},
     github: { text: 'Display Github link address of my profile'},
     cv: { text: 'Display pdf version CV/Resume of mine'},
+    color: { text: 'Change Terminal Colors', section: 'Fun Commands'},
     ip: { text: 'Show your IP address', section: 'External API Commands'},
     location: { text: 'Show detailed Location information'},
     weather: { text: 'Show current Weather Forecast based on your IP'},
@@ -40,7 +43,7 @@ const Commands = props => {
             </div> }
             <div className="flex" >
               <div className="flex-left">
-                  <button onClick={() => props.handleButtonClick([...props.inputField, command])} style={{margin: '0 0 4px 0'}}>{command}</button>
+                  <button onClick={() => props.handleButtonClick([...props.inputField, command])} style={{margin: '-1px 0 5px 0'}}>{command}</button>
                 </div>
               <div className="flex-right">{commandList[command].text}</div>
             </div>
@@ -87,6 +90,33 @@ const Commands = props => {
       return(
         <div style={{width: '100%'}}>
           <span>{props.ip.ip_address}</span>
+        </div>
+      )
+    case 'color':
+      return(
+        <div className="flex">
+          <div style={{ marginRight: '20px' }}>
+            Background Color
+            <ChromePicker
+              disableAlpha
+              color={props.color.background}
+              onChangeComplete={color => {
+                props.setColor({text: props.color.text, background: color.hex})
+                localStorage.setItem('color', JSON.stringify({text: props.color.text, background: color.hex}))
+              }}
+            />
+          </div>
+          <div>
+            Text Color
+            <ChromePicker
+              disableAlpha
+              color={props.color.text}
+              onChangeComplete={color => {
+                props.setColor({background: props.color.background, text: color.hex})
+                localStorage.setItem('color', JSON.stringify({text: props.color.text, background: color.hex}))
+              }}
+            />
+          </div>
         </div>
       )
     case 'location':

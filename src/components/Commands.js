@@ -26,7 +26,7 @@ const Commands = props => {
   switch(props.command) {
     case 'commands':
       return(
-        Object.keys(commandList).map((command) => <button onClick={() => props.setInputField([...props.inputField, command])} key={command} style={{margin: '5px 10px 5px 0'}}>
+        Object.keys(commandList).map((command) => <button onClick={() => props.handleButtonClick([...props.inputField, command])} key={command} style={{margin: '5px 10px 5px 0'}}>
           {command}
         </button>)
       )
@@ -36,7 +36,7 @@ const Commands = props => {
           {Object.keys(commandList).map((command) => <div key={command} style={{width: '100%'}}>
             {commandList[command].section && <div style={{fontWeight: 'bold', paddingLeft: '110px', marginTop: '10px'}}>{commandList[command].section}</div> }
             <span style={{width: '100px', display: 'inline-block', textAlign: 'right', marginRight: '10px'}}>
-                <button onClick={() => props.setInputField([...props.inputField, command])} style={{margin: '2px 0 2px 0'}}>{command}</button>
+                <button onClick={() => props.handleButtonClick([...props.inputField, command])} style={{margin: '2px 0 2px 0'}}>{command}</button>
               </span>
             <span>{commandList[command].text}</span>
           </div>)}
@@ -47,7 +47,7 @@ const Commands = props => {
         <div>
           A Short Information<br /><br />
           This project is made by React(v17) as a personal reference.<br />
-          You can use <button onClick={() => props.setInputField([...props.inputField, 'help'])}>help</button> command to get the list of available commands and it's up to you to discover the hidden and funny sections of my website.<br />
+          You can use <button onClick={() => props.handleButtonClick([...props.inputField, 'help'])}>help</button> command to get the list of available commands and it's up to you to discover the hidden and funny sections of my website.<br />
           There can be limitations to access some data.<br />
           You may need authorization from me personally to access limit sections.<br /><br />
           Cheers,<br />

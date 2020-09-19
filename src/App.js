@@ -10,7 +10,13 @@ const App = () => {
 
   const useFocus = () => {
     const htmlElRef = useRef(null)
-    const setFocus = () => {htmlElRef.current &&  htmlElRef.current.focus()}
+
+    const setFocus = () => {
+      const x = window.scrollX, y = window.scrollY;
+      htmlElRef.current &&  htmlElRef.current.focus()
+      window.scrollTo(x, y);
+    }
+
     return [ htmlElRef, setFocus ]
   }
 
@@ -54,6 +60,11 @@ const App = () => {
 
   }, [])
 
+  const handleButtonClick = (value) => {
+    setTimeout(updateScroll,200)
+    setInputField(value)
+  }
+
   const onKeyUp = event => {
     const value = event.target.value.toLowerCase()
     setKeyPress(value)
@@ -84,12 +95,12 @@ const App = () => {
         getWeather(ip.latitude, ip.longitude)
       }
 
-      setTimeout(updateScroll,150)
+      setTimeout(updateScroll,200)
     }
   }
 
   return (
-    <div className="app">
+    <div className="app" onClick={setInputFocus}>
       {showHeader && <div className="header">
         <div className="welcome">Welcome to Sercan's Homepage <span className="small">(v{version})</span></div>
         <div className="line"><strong>Date:</strong> {dateTime}</div>
@@ -99,7 +110,9 @@ const App = () => {
         <div className="line"><strong>Location:</strong> {ip.ip_address && <span>{ip.city}({ip.region_code}), {ip.country}, {ip.continent}, <strong>Coordinates:</strong> {ip.latitude}, {ip.longitude}</span>}</div>
         <div className="line"><strong>Weather:</strong> {weather.current && <span>Temp: {weather.current.temp}C, Feels like: {weather.current.feels_like}C, Humidity: {weather.current.humidity}%, Wind: {weather.current.wind_speed}m/s, UV: {weather.current.uvi}</span>}</div>
         <div className="line" />
-        <div className="line">Enter <button onClick={() => setInputField([...inputField, 'info'])}>info</button> for more information or <button onClick={() => setInputField([...inputField, 'help'])}>help</button>/<button onClick={() => setInputField([...inputField, 'commands'])}>commands</button> for command list.</div>
+        <div className="line">
+          Enter <button onClick={() => handleButtonClick([...inputField, 'info'])}>info</button> for more information or <button onClick={() => handleButtonClick([...inputField, 'help'])}>help</button>/<button onClick={() => handleButtonClick([...inputField, 'commands'])}>commands</button> for command list.
+        </div>
       </div>}
       {inputField.map((command, index) =>
         <div key={command + index} style={{marginTop: '15px'}}>
@@ -113,7 +126,7 @@ const App = () => {
               <Commands
                 command={command}
                 inputField={inputField}
-                setInputField={setInputField}
+                handleButtonClick={handleButtonClick}
                 ip={ip}
                 weather={weather}
                 dateTime={dateTime}
@@ -123,7 +136,7 @@ const App = () => {
         </div>
       )}
 
-      <div className="line split" style={{ paddingBottom: 15, paddingTop: 15 }} onClick={setInputFocus}>
+      <div className="line split" style={{ paddingBottom: 15, paddingTop: 15 }}>
         <div className="user">[user@inaler.com]&nbsp;#</div>
         <div>
           <input className="input"

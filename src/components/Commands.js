@@ -43,7 +43,7 @@ const Commands = props => {
             </div> }
             <div className="flex" >
               <div className="flex-left">
-                  <button onClick={() => props.handleButtonClick([...props.inputField, command])} style={{margin: '-1px 0 5px 0'}}>{command}</button>
+                  <button onClick={() => props.handleButtonClick([...props.inputField, command])} style={{margin: '0 0 5px 0'}}>{command}</button>
                 </div>
               <div className="flex-right">{commandList[command].text}</div>
             </div>

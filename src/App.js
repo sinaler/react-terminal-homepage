@@ -98,13 +98,18 @@ const App = () => {
     }
   }
 
+  useEffect(() => {
+    document.body.style.backgroundColor = color.background;
+    document.body.style.color = color.text;
+  }, [color])
+
   return (
-    <div className="app" onClick={setInputFocus} style={{backgroundColor: color.background, color: color.text}}>
+    <div className="app" onClick={setInputFocus}>
       {showHeader && <div className="header">
-        <div className="welcome">Welcome to Sercan's Homepage <span>(v{version})</span></div>
+        <div className="welcome">Welcome to Sercan's Terminal <span>(v{version})</span></div>
         <div className="line"><strong>Date:</strong> {dateTime}</div>
-        <div className="line"><strong>Screen Resolution:</strong> {window.screen.width}x{window.screen.height}px, <strong>Depth:</strong> {window.screen.pixelDepth}px</div>
         <div className="line"><strong>Platform:</strong> {navigator.platform}, <strong>User agent:</strong> {navigator.userAgent}</div>
+        <div className="line"><strong>Screen Resolution:</strong> {window.screen.width}x{window.screen.height}px, <strong>Depth:</strong> {window.screen.pixelDepth}px</div>
         <div className="line"><strong>Ip address:</strong> {ip.ip_address && <span> {ip.ip_address}, <strong>Local languages:</strong> {ip.languages && ip.languages.map((language, index) => <span key={language}> {language}</span>)}, <strong>Currency:</strong> {ip.currency}</span>}</div>
         <div className="line"><strong>Location:</strong> {ip.ip_address && <span>{ip.city}({ip.region_code}), {ip.country}, {ip.continent}, <strong>Coordinates:</strong> {ip.latitude}, {ip.longitude}</span>}</div>
         <div className="line"><strong>Weather:</strong> {weather.current && <span>Temp: {weather.current.temp}C, Feels like: {weather.current.feels_like}C, Humidity: {weather.current.humidity}%, Wind: {weather.current.wind_speed}m/s, UV: {weather.current.uvi}</span>}</div>

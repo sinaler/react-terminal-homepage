@@ -28,7 +28,8 @@ button {
   color: white;
   padding: 0 3px;
   border: 0;
-  height: 15px;
+  height: 13px;
+  line-height: 14px;
 }
 
 button:hover {
@@ -66,9 +67,9 @@ button:hover {
 }
 
 .flex-left {
-  width: 95px;
+  width: 100px;
   text-align: right;
-  margin-right: 10px;
+  margin-right: 15px;
 }
 
 .flex-right {

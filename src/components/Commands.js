@@ -6,14 +6,14 @@ import { ChromePicker } from 'react-color'
 
 const Commands = props => {
   const commandList = {
-    info: { text: 'Display information about the project', section: 'System Commands'},
+    info: { text: 'Display information about the Terminal', section: 'System Commands'},
     help: { text: 'Display help about the commands'},
     commands: { text: 'List the full list of commands'},
     clear: { text: 'Clears the screen'},
-    reload: { text: 'Reloads the whole project'},
-    history: { text: 'Shows the version history'},
+    reload: { text: 'Reloads the whole Terminal while keeping settings'},
+    history: { text: 'Shows the Terminal version history'},
     date: { text: 'Shows the date&time'},
-    source: { text: 'Show the source file of the project', section: 'Profile Commands'},
+    source: { text: 'Show the source file of the Terminal', section: 'Profile Commands'},
     email: { text: 'Display email of mine'},
     linkedin: { text: 'Display LinkedIn link address of my profile'},
     github: { text: 'Display Github link address of my profile'},
@@ -22,8 +22,8 @@ const Commands = props => {
     ip: { text: 'Show your IP address', section: 'External API Commands'},
     location: { text: 'Show detailed Location information'},
     weather: { text: 'Show current Weather Forecast based on your IP'},
-    'get ip': { text: 'Fetches new IP address', hidden: true},
-    'get weather': { text: 'Fetches updated Weather forecast', hidden: true},
+    'get ip': { text: 'Fetches new IP address'},
+    'get weather': { text: 'Fetches updated Weather forecast'},
   }
 
   switch(props.command) {
@@ -54,10 +54,10 @@ const Commands = props => {
       return(
         <div>
           A Short Information<br /><br />
-          This project is made by React(v17) as a personal reference.<br />
+          Terminal project is made by React(v17) as a personal reference.<br />
           You can use <button onClick={() => props.handleButtonClick([...props.inputField, 'help'])}>help</button> command to get the list of available commands and it's up to you to discover the hidden and funny sections of my website.<br />
           There can be limitations to access some data.<br />
-          You may need authorization from me personally to access limit sections.<br /><br />
+          You may need to login or get authorization from me personally to access limit sections.<br /><br />
           Cheers,<br />
           Sercan
         </div>
@@ -68,7 +68,7 @@ const Commands = props => {
       return(props.dateTime)
     case 'source':
       return(
-        <div>Github repository: <a href="https://github.com/sinaler/react-terminal-homepage" rel="noopener noreferrer" target="_blank">https://github.com/sinaler/react-terminal-homepage</a></div>
+        <div>This section is restricted to authorised users. Github repository: <a href="https://github.com/sinaler/react-terminal-homepage" rel="noopener noreferrer" target="_blank">https://github.com/sinaler/react-terminal-homepage</a></div>
       )
     case 'email':
       return(
@@ -84,7 +84,7 @@ const Commands = props => {
       )
     case 'cv':
       return(
-        <div><a href="/cv-sercan-inaler-2020-frontend.pdf" rel="noopener noreferrer" target="_blank">cv-sercan-inaler-2020-frontend.pdf</a></div>
+        <div>This section is restricted to authorised users.</div>
       )
     case 'ip':
       return(

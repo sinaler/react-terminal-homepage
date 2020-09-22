@@ -9,16 +9,17 @@ const Commands = props => {
     info: { text: 'Display information about the Terminal', section: 'System Commands'},
     help: { text: 'Display help about the commands'},
     commands: { text: 'List the full list of commands'},
+    date: { text: 'Shows the date & time'},
     clear: { text: 'Clears the screen'},
     reload: { text: 'Reloads the whole Terminal while keeping settings'},
+    reset: { text: 'Reset all settings and cookies'},
     history: { text: 'Shows the Terminal version history'},
-    date: { text: 'Shows the date&time'},
     source: { text: 'Show the source file of the Terminal', section: 'Profile Commands'},
     email: { text: 'Display email of mine'},
     linkedin: { text: 'Display LinkedIn link address of my profile'},
     github: { text: 'Display Github link address of my profile'},
     cv: { text: 'Display pdf version CV/Resume of mine'},
-    color: { text: 'Change Terminal Colors', section: 'Fun Commands'},
+    theme: { text: 'Change Terminal Theme colors', section: 'Fun Commands'},
     ip: { text: 'Show your IP address', section: 'External API Commands'},
     location: { text: 'Show detailed Location information'},
     weather: { text: 'Show current Weather Forecast based on your IP'},
@@ -29,7 +30,7 @@ const Commands = props => {
   switch(props.command) {
     case 'commands':
       return(
-        Object.keys(commandList).map((command) => <button onClick={() => props.handleButtonClick([...props.inputField, command])} key={command} style={{margin: '5px 10px 5px 0'}}>
+        Object.keys(commandList).map((command) => <button onClick={() => props.handleButtonClick(command)} key={command} style={{margin: '5px 10px 5px 0'}}>
           {command}
         </button>)
       )
@@ -43,7 +44,7 @@ const Commands = props => {
             </div> }
             <div className="flex" >
               <div className="flex-left">
-                  <button onClick={() => props.handleButtonClick([...props.inputField, command])} style={{margin: '0 0 5px 0'}}>{command}</button>
+                  <button onClick={() => props.handleButtonClick(command)} style={{margin: '0 0 2px 0'}}>{command}</button>
                 </div>
               <div className="flex-right">{commandList[command].text}</div>
             </div>
@@ -55,7 +56,7 @@ const Commands = props => {
         <div>
           A Short Information<br /><br />
           Terminal project is made by React(v17) as a personal reference.<br />
-          You can use <button onClick={() => props.handleButtonClick([...props.inputField, 'help'])}>help</button> command to get the list of available commands and it's up to you to discover the hidden and funny sections of my website.<br />
+          You can use <button onClick={() => props.handleButtonClick('help')}>help</button> command to get the list of available commands and it's up to you to discover the hidden and funny sections of my website.<br />
           There can be limitations to access some data.<br />
           You may need to login or get authorization from me personally to access limit sections.<br /><br />
           Cheers,<br />
@@ -63,7 +64,7 @@ const Commands = props => {
         </div>
       )
     case 'history':
-      return(History)
+      return(<History handleButtonClick={props.handleButtonClick} />)
     case 'date':
       return(props.dateTime)
     case 'source':
@@ -76,7 +77,7 @@ const Commands = props => {
       )
     case 'linkedin':
       return(
-        <div><a href="https://www.linkedin.com/in/sinaler"rel="noopener noreferrer" target="_blank">https://www.linkedin.com/in/sinaler</a></div>
+        <div><a href="https://www.linkedin.com/in/sinaler" rel="noopener noreferrer" target="_blank">https://www.linkedin.com/in/sinaler</a></div>
       )
     case 'github':
       return(
@@ -92,11 +93,11 @@ const Commands = props => {
           <span>{props.ip.ip_address}</span>
         </div>
       )
-    case 'color':
+    case 'theme':
       return(
         <div className="flex">
           <div style={{ marginRight: '20px' }}>
-            Background Color
+            <div style={{ marginBottom: '10px' }}>Background Color</div>
             <ChromePicker
               disableAlpha
               color={props.color.background}
@@ -107,7 +108,7 @@ const Commands = props => {
             />
           </div>
           <div>
-            Text Color
+            <div style={{ marginBottom: '10px' }}>Text Color</div>
             <ChromePicker
               disableAlpha
               color={props.color.text}

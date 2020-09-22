@@ -4,7 +4,8 @@ import Commands from './components/Commands'
 import './App.css';
 
 const App = () => {
-  const version = '2.1.0'
+  const version = '2.1.1'
+  const theme = {text: '#FFFFFF', background: '#000000'}
 
   const useFocus = () => {
     const htmlElRef = useRef(null)
@@ -28,7 +29,7 @@ const App = () => {
   const [showHeader, setShowHeader] = useState(true)
   const [ip, setIp] = useState({})
   const [weather, setWeather] = useState({})
-  const [color, setColor] = useState(JSON.parse(localStorage.getItem('color')) || {text: '#FFFFFF', background: '#000000'})
+  const [color, setColor] = useState(JSON.parse(localStorage.getItem('color')) || theme)
   const [dateTime, setDateTime] = useState('')
 
   setInterval(() => setDateTime(new Date().toString().slice(0, -12)),1000)
@@ -59,9 +60,41 @@ const App = () => {
 
   }, [])
 
+  const checkSystemCommands = command => {
+    if (command === 'clear') {
+      setInputField([])
+      setShowHeader(false)
+    }
+
+    if (command === 'reload') {
+      setInputField([])
+      setShowHeader(true)
+    }
+
+    if (command === 'reset') {
+      setInputField([])
+      setShowHeader(true)
+      localStorage.removeItem('color')
+      setColor(theme)
+    }
+
+    if (command === 'get ip') {
+      fetch('https://api.ipfind.com/me?auth=' + ipFindKey).then(response => {
+        return response.json()
+      }).then(data => {
+        setIp(data)
+      })
+    }
+
+    if (command === 'get weather') {
+      getWeather(ip.latitude, ip.longitude)
+    }
+  }
+
   const handleButtonClick = (value) => {
     setTimeout(updateScroll,150)
-    setInputField(value)
+    setInputField([...inputField, value])
+    checkSystemCommands(value)
   }
 
   const onKeyUp = event => {
@@ -72,28 +105,7 @@ const App = () => {
       setInputField([...inputField, value])
       setKeyPress('')
 
-      if (value === 'clear') {
-        setInputField([])
-        setShowHeader(false)
-      }
-
-      if (value === 'reload') {
-        setInputField([])
-        setShowHeader(true)
-      }
-
-      if (value === 'get ip') {
-        fetch('https://api.ipfind.com/me?auth=' + ipFindKey).then(response => {
-          return response.json()
-        }).then(data => {
-          setIp(data)
-        })
-      }
-
-      if (value === 'get weather') {
-        getWeather(ip.latitude, ip.longitude)
-      }
-
+      checkSystemCommands(value)
       setTimeout(updateScroll,150)
     }
   }
@@ -110,12 +122,12 @@ const App = () => {
         <div className="line"><strong>Date:</strong> {dateTime}</div>
         <div className="line"><strong>Platform:</strong> {navigator.platform}, <strong>User agent:</strong> {navigator.userAgent}</div>
         <div className="line"><strong>Screen Resolution:</strong> {window.screen.width}x{window.screen.height}px, <strong>Depth:</strong> {window.screen.pixelDepth}px</div>
-        <div className="line"><strong>Ip address:</strong> {ip.ip_address && <span> {ip.ip_address}, <strong>Local languages:</strong> {ip.languages && ip.languages.map((language, index) => <span key={language}> {language}</span>)}, <strong>Currency:</strong> {ip.currency}</span>}</div>
+        <div className="line"><strong>Ip address:</strong> {ip.ip_address && <span> {ip.ip_address}, <strong>Local languages:</strong> {ip.languages && ip.languages.map((language) => <span key={language}> {language}</span>)}, <strong>Currency:</strong> {ip.currency}</span>}</div>
         <div className="line"><strong>Location:</strong> {ip.ip_address && <span>{ip.city}({ip.region_code}), {ip.country}, {ip.continent}, <strong>Coordinates:</strong> {ip.latitude}, {ip.longitude}</span>}</div>
         <div className="line"><strong>Weather:</strong> {weather.current && <span>Temp: {weather.current.temp}C, Feels like: {weather.current.feels_like}C, Humidity: {weather.current.humidity}%, Wind: {weather.current.wind_speed}m/s, UV: {weather.current.uvi}</span>}</div>
         <div className="line" />
         <div className="line">
-          Enter <button onClick={() => handleButtonClick([...inputField, 'info'])}>info</button> for more information or <button onClick={() => handleButtonClick([...inputField, 'help'])}>help</button> & <button onClick={() => handleButtonClick([...inputField, 'commands'])}>commands</button> for command list.
+          Enter <button onClick={() => handleButtonClick('info')}>info</button> for more information. Use <button onClick={() => handleButtonClick('help')}>help</button> or <button onClick={() => handleButtonClick('commands')}>commands</button> for command list.
         </div>
       </div>}
       {inputField.map((command, index) =>
@@ -129,7 +141,6 @@ const App = () => {
             <div className="result">
               <Commands
                 command={command}
-                inputField={inputField}
                 handleButtonClick={handleButtonClick}
                 ip={ip}
                 weather={weather}

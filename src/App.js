@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {openWeatherMapKey, ipFindKey} from './config'
 import Commands from './components/Commands'
-import './App.css';
+import './App.scss';
 
 const App = () => {
   const version = '2.1.1'

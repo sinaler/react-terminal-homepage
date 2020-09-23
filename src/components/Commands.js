@@ -1,5 +1,5 @@
 import React from 'react'
-import '../App.css'
+import '../App.scss'
 import History from './History'
 import { ChromePicker } from 'react-color'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import '../App.css';
+import '../App.scss';
 
 const History = props => (
   <div>
@@ -89,7 +89,11 @@ const History = props => (
         Add loaders<br />
         Add e-mail API<br />
         Add picture API<br />
-        Add Typescript
+        Add Typescript<br />
+        Add SASS/Styled Components<br />
+        Add Axios<br />
+        Use Context<br />
+        Add GSAP project<br />
         Add some games
       </div>
     </div>

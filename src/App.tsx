@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, {useEffect, useRef, useState} from 'react'
 import {openWeatherMapKey, ipFindKey} from './config'
 import Commands from './components/Commands'
@@ -12,7 +13,8 @@ const App = () => {
 
     const setFocus = () => {
       const x = window.scrollX, y = window.scrollY;
-      htmlElRef.current &&  htmlElRef.current.focus()
+      // @ts-ignore
+      htmlElRef.current && htmlElRef.current.focus()
       window.scrollTo(x, y);
     }
 

@@ -1,5 +1,6 @@
+// @ts-nocheck
 import React from 'react'
-import '../App.scss';
+import '../App.scss'
 
 const History = props => (
   <div>

@@ -1,8 +1,9 @@
+// @ts-nocheck
 import React from 'react'
 import '../App.scss'
 import History from './History'
 import { ChromePicker } from 'react-color'
-
+import { Context, SnakeGame } from "react-game-snake";
 
 const Commands = props => {
   const commandList = {
@@ -20,6 +21,7 @@ const Commands = props => {
     github: { text: 'Display Github link address of my profile'},
     cv: { text: 'Display pdf version CV/Resume of mine'},
     theme: { text: 'Change Terminal Theme colors', section: 'Fun Commands'},
+    snake: { text: 'A simple Snake Game :)'},
     ip: { text: 'Show your IP address', section: 'External API Commands'},
     location: { text: 'Show detailed Location information'},
     weather: { text: 'Show current Weather Forecast based on your IP'},
@@ -130,6 +132,27 @@ const Commands = props => {
             <span>{props.ip[key]}</span>
           </div>)}
         </div>
+      )
+    case 'snake':
+      return(
+        <SnakeGame
+          colors={{
+            field: "#bdc3c7",
+            food: "#9b59b6",
+            snake: "#3498db",
+          }}
+          countOfHorizontalFields={20}
+          countOfVerticalFields={20}
+          fieldSize={20}
+          loopTime={200}
+          pauseAllowed={true}
+          restartAllowed={true}
+          onLoose={(context: Context) => alert(`You loosed with ${context.game.points} points.`)}
+          onPause={(context: Context) => alert("paused")}
+          onRestart={(context: Context) => alert("restarted")}
+          onResume={(context: Context) => alert("onResume")}
+          onWin={(context: Context) => alert(`You won with ${context.game.points} points.`)}
+        />
       )
     case 'weather':
       return(

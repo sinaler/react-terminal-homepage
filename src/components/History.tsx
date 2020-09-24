@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import '../App.scss'
 
-const FlexContainer = styled.div`
+const Flex = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -20,11 +20,11 @@ const FlexRight = styled.div`
 
 const History = (props: any) => (
   <div>
-    <FlexContainer style={{marginBottom: '3px'}}>
+    <Flex style={{marginBottom: '3px'}}>
       <FlexLeft className="bold">Version</FlexLeft>
       <FlexRight className="bold">Development History</FlexRight>
-    </FlexContainer>
-    <FlexContainer>
+    </Flex>
+    <Flex>
       <FlexLeft>2.2.1</FlexLeft>
       <FlexRight>
         Switched to Typescript<br />
@@ -32,15 +32,15 @@ const History = (props: any) => (
         Added Styled Components for testing<br />
         Switched to Axios
       </FlexRight>
-    </FlexContainer>
-    <FlexContainer>
+    </Flex>
+    <Flex>
       <FlexLeft>2.1.1</FlexLeft>
       <FlexRight>
         Added <button onClick={() => props.handleButtonClick('reset')}>reset</button> command<br />
         Added command buttons in history
       </FlexRight>
-    </FlexContainer>
-    <FlexContainer>
+    </Flex>
+    <Flex>
       <FlexLeft>2.1.0</FlexLeft>
       <FlexRight>
         Added <button onClick={() => props.handleButtonClick('date')}>date</button> command<br />
@@ -49,16 +49,16 @@ const History = (props: any) => (
         Added <button onClick={() => props.handleButtonClick('theme')}>theme</button> command to change Terminal<br />
         Improved mobile design
       </FlexRight>
-    </FlexContainer>
-    <FlexContainer>
+    </Flex>
+    <Flex>
       <FlexLeft>2.0.7</FlexLeft>
       <FlexRight>
         Added <button onClick={() => props.handleButtonClick('history')}>history</button><br />
         Refactored <button onClick={() => props.handleButtonClick('clear')}>clear</button> & <button onClick={() => props.handleButtonClick('reload')}>reload</button> commands<br />
         Split large project components
       </FlexRight>
-    </FlexContainer>
-    <FlexContainer>
+    </Flex>
+    <Flex>
       <FlexLeft>2.0.6</FlexLeft>
       <FlexRight>
         Improvements on IP and Weather API<br />
@@ -66,15 +66,15 @@ const History = (props: any) => (
         Better UI/UX for unix terminal feeling<br />
         Worked a lot on wording
       </FlexRight>
-    </FlexContainer>
-    <FlexContainer>
+    </Flex>
+    <Flex>
       <FlexLeft>2.0.5</FlexLeft>
       <FlexRight>
         Added <button onClick={() => props.handleButtonClick('ip')}>ip</button> & <button onClick={() => props.handleButtonClick('location')}>location</button> API commands<br />
         Added <button onClick={() => props.handleButtonClick('weather')}>weather</button>command for weather forecast API
       </FlexRight>
-    </FlexContainer>
-    <FlexContainer>
+    </Flex>
+    <Flex>
       <FlexLeft>2.0.4</FlexLeft>
       <FlexRight>
         Added <button onClick={() => props.handleButtonClick('clear')}>clear</button> & <button onClick={() => props.handleButtonClick('reload')}>reload</button> commands<br />
@@ -85,30 +85,30 @@ const History = (props: any) => (
         <button onClick={() => props.handleButtonClick('github')}>github</button> &{' '}
         <button onClick={() => props.handleButtonClick('cv')}>cv</button>)
       </FlexRight>
-    </FlexContainer>
-    <FlexContainer>
+    </Flex>
+    <Flex>
       <FlexLeft>2.0.3</FlexLeft>
       <FlexRight>
         Added <button onClick={() => props.handleButtonClick('info')}>info</button> & <button onClick={() => props.handleButtonClick('help')}>help</button> & <button onClick={() => props.handleButtonClick('commands')}>commands</button> commands<br />
         Refactor whole css<br />
         Improved mobile design
       </FlexRight>
-    </FlexContainer>
-    <FlexContainer>
+    </Flex>
+    <Flex>
       <FlexLeft>2.0.2</FlexLeft>
       <FlexRight>
         Redesigned with Terminal layout<br />
         Added date & screen & platform information on the header
       </FlexRight>
-    </FlexContainer>
-    <FlexContainer>
+    </Flex>
+    <Flex>
       <FlexLeft>2.0.1</FlexLeft>
       <FlexRight>
         Initialised the new Project<br />
         Switched to React (v17) from jQuery
       </FlexRight>
-    </FlexContainer>
-    <FlexContainer>
+    </Flex>
+    <Flex>
       <FlexLeft>Todo's</FlexLeft>
       <FlexRight>
         Support console commands<br />
@@ -117,9 +117,10 @@ const History = (props: any) => (
         Add picture API<br />
         Use Context<br />
         Add GSAP project<br />
-        Add some more games
+        Add some more games<br />
+        Add Currency api
       </FlexRight>
-    </FlexContainer>
+    </Flex>
   </div>
 )
 

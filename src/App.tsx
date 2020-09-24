@@ -9,16 +9,13 @@ const App = () => {
   const theme = {text: '#FFFFFF', background: '#000000'}
 
   const useFocus = () => {
-    const htmlElRef = useRef(null)
-
+    const htmlElRef = useRef<HTMLInputElement>(null)
     const setFocus = () => {
       const x = window.scrollX, y = window.scrollY;
-      // @ts-ignore
       htmlElRef.current && htmlElRef.current.focus()
       window.scrollTo(x, y);
     }
-
-    return [ htmlElRef, setFocus ]
+    return [ htmlElRef, setFocus ] as const
   }
 
   const updateScroll = () => {
@@ -57,7 +54,7 @@ const App = () => {
 
   const [ip, setIp] = useState<ip>({})
   const [weather, setWeather] = useState<weather>({})
-  // @ts-ignore
+  // @ts-ignore TODO
   const [color, setColor] = useState(JSON.parse(localStorage.getItem('color')) || theme)
   const [dateTime, setDateTime] = useState('')
 
@@ -142,8 +139,7 @@ const App = () => {
   }, [color])
 
   return (
-    // @ts-ignore
-    <div className="app" onClick={setInputFocus}>
+    <div className="app" onClick={() => setInputFocus()}>
       {showHeader && <div className="header">
         <div className="welcome">Welcome to Sercan's Terminal <span>(v{version})</span></div>
         <div className="line"><strong>Date:</strong> {dateTime}</div>

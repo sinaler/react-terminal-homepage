@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, {useEffect, useRef, useState} from 'react'
 import {openWeatherMapKey, ipFindKey} from './config'
 import Commands from './components/Commands'
@@ -26,17 +25,44 @@ const App = () => {
   }
 
   const [keyPress, setKeyPress] = useState('')
-  const [inputField, setInputField] = useState([])
+  const [inputField, setInputField] = useState<string[]>([])
   const [inputRef, setInputFocus] = useFocus()
   const [showHeader, setShowHeader] = useState(true)
-  const [ip, setIp] = useState({})
-  const [weather, setWeather] = useState({})
+
+  interface ip {
+    latitude?: string,
+    longitude?: string,
+    ip_address?: string,
+    languages?: string[],
+    currency?: string,
+    city?: string,
+    region_code?: string,
+    country?: string,
+    continent?: string,
+    current?: {
+      temp: string,
+    },
+  }
+
+  interface weather {
+    current?: {
+      temp: string,
+      feels_like: string,
+      humidity: string,
+      wind_speed: string,
+      uvi: string
+    }
+  }
+
+  const [ip, setIp] = useState<ip>({})
+  const [weather, setWeather] = useState<weather>({})
+  // @ts-ignore
   const [color, setColor] = useState(JSON.parse(localStorage.getItem('color')) || theme)
   const [dateTime, setDateTime] = useState('')
 
   setInterval(() => setDateTime(new Date().toString().slice(0, -12)),1000)
 
-  const getWeather = (latitude, longitude) => {
+  const getWeather = (latitude: string, longitude: string) => {
     if (latitude && longitude) {
       fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=metric&appid=' + openWeatherMapKey).then(response => {
         return response.json()
@@ -62,7 +88,7 @@ const App = () => {
 
   }, [])
 
-  const checkSystemCommands = command => {
+  const checkSystemCommands = (command: string) => {
     if (command === 'clear') {
       setInputField([])
       setShowHeader(false)
@@ -89,17 +115,17 @@ const App = () => {
     }
 
     if (command === 'get weather') {
-      getWeather(ip.latitude, ip.longitude)
+      getWeather(ip.latitude!, ip.longitude!)
     }
   }
 
-  const handleButtonClick = (value) => {
+  const handleButtonClick = (value: string) => {
     setTimeout(updateScroll,150)
     setInputField([...inputField, value])
     checkSystemCommands(value)
   }
 
-  const onKeyUp = event => {
+  const onKeyUp = (event: any) => {
     const value = event.target.value.toLowerCase()
     setKeyPress(value)
 
@@ -118,7 +144,7 @@ const App = () => {
   }, [color])
 
   return (
-    <div className="app" onClick={setInputFocus}>
+    <div className="app" onClick={() => setInputFocus}>
       {showHeader && <div className="header">
         <div className="welcome">Welcome to Sercan's Terminal <span>(v{version})</span></div>
         <div className="line"><strong>Date:</strong> {dateTime}</div>

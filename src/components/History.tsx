@@ -1,8 +1,7 @@
-// @ts-nocheck
 import React from 'react'
 import '../App.scss'
 
-const History = props => (
+const History = (props: any) => (
   <div>
     <div className="flex" style={{marginBottom: '3px'}}>
       <div className="flex-left bold">Version</div>

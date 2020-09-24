@@ -2,21 +2,24 @@
   "name": "inaler-react-homepage",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
+  "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^12.1.6",
     "@types/jest": "^26.0.14",
     "@types/node": "^14.11.2",
     "@types/react": "^16.9.49",
+    "@types/react-color": "^3.0.4",
     "@types/react-dom": "^16.9.8",
     "node-sass": "^4.14.1",
+    "typescript": "^4.0.3"
+  },
+  "dependencies": {
     "react": "17.0.0-rc.1",
     "react-color": "^2.18.1",
     "react-dom": "17.0.0-rc.1",
     "react-game-snake": "^1.0.4",
-    "react-scripts": "3.4.3",
-    "typescript": "^4.0.3"
+    "react-scripts": "3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",

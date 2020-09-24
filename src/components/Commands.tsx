@@ -1,12 +1,19 @@
-// @ts-nocheck
 import React from 'react'
 import '../App.scss'
 import History from './History'
 import { ChromePicker } from 'react-color'
-import { Context, SnakeGame } from "react-game-snake";
+import { Context, SnakeGame } from 'react-game-snake'
 
-const Commands = props => {
-  const commandList = {
+const Commands = (props: any) => {
+
+  interface commandList {
+    [key: string]: {
+      text: string,
+      section?: string,
+    }
+  }
+
+  const commandList: commandList = {
     info: { text: 'Display information about the Terminal', section: 'System Commands'},
     help: { text: 'Display help about the commands'},
     commands: { text: 'List the full list of commands'},
@@ -32,14 +39,14 @@ const Commands = props => {
   switch(props.command) {
     case 'commands':
       return(
-        Object.keys(commandList).map((command) => <button onClick={() => props.handleButtonClick(command)} key={command} style={{margin: '5px 10px 5px 0'}}>
+        Object.keys(commandList).map((command: string) => <button onClick={() => props.handleButtonClick(command)} key={command} style={{margin: '5px 10px 5px 0'}}>
           {command}
         </button>)
       )
     case 'help':
       return(
         <div style={{marginTop: '-14px'}}>
-          {Object.keys(commandList).map((command) => <div key={command}>
+          {Object.keys(commandList).map((command: string) => <div key={command}>
             {commandList[command].section && <div className="flex">
               <div className="flex-left" />
               <div className="flex-right bold" style={{margin: '6px 0 4px'}}>{commandList[command].section}</div>

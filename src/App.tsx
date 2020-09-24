@@ -53,6 +53,7 @@ const App = () => {
 
   const [ip, setIp] = useState<ip>({})
   const [weather, setWeather] = useState<weather>({})
+
   // @ts-ignore TODO
   const [color, setColor] = useState(JSON.parse(localStorage.getItem('color')) || theme)
   const [dateTime, setDateTime] = useState('')
@@ -80,12 +81,21 @@ const App = () => {
     }
   }, [])
 
+  const interval = useRef<number>()
+
   useEffect(() => {
-    const interval = setInterval(() => setDateTime(new Date().toString().slice(0, -12)),1000)
-    return () => clearInterval(interval);
-  }, []);
+    interval.current = setInterval(() => {
+      setDateTime(new Date().toString().slice(0, -12))
+    },1000)
+    return () => clearInterval(interval.current);
+  });
 
   const checkSystemCommands = (command: string) => {
+    if (command === 'snake') {
+      console.log('here')
+      setTimeout(() => clearInterval(interval.current), 1000)
+    }
+
     if (command === 'clear') {
       setInputField([])
       setShowHeader(false)

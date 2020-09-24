@@ -8,6 +8,14 @@ const History = (props: any) => (
       <div className="flex-right bold">Development History</div>
     </div>
     <div className="flex">
+      <div className="flex-left">2.2.1</div>
+      <div className="flex-right">
+        Switched to Typescript<br />
+        Added SASS for styling<br />
+        Switched to Axios<br />
+      </div>
+    </div>
+    <div className="flex">
       <div className="flex-left">2.1.1</div>
       <div className="flex-right">
         Added <button onClick={() => props.handleButtonClick('reset')}>reset</button> command<br />
@@ -89,9 +97,6 @@ const History = (props: any) => (
         Add loaders<br />
         Add e-mail API<br />
         Add picture API<br />
-        Add Typescript<br />
-        Add SASS/Styled Components<br />
-        Add Axios<br />
         Use Context<br />
         Add GSAP project<br />
         Add some games

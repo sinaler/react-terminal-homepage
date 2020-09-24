@@ -1,10 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {openWeatherMapKey, ipFindKey} from './config'
+import axios from 'axios'
 import Commands from './components/Commands'
 import './App.scss';
 
 const App = () => {
-  const version = '2.1.1'
+  const version = '2.2.1'
   const theme = {text: '#FFFFFF', background: '#000000'}
 
   const useFocus = () => {
@@ -64,28 +65,25 @@ const App = () => {
 
   const getWeather = (latitude: string, longitude: string) => {
     if (latitude && longitude) {
-      fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=metric&appid=' + openWeatherMapKey).then(response => {
-        return response.json()
-      }).then(data => {
-        setWeather(data)
-      })
+      axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=metric&appid=' + openWeatherMapKey)
+        .then(response => {
+          setWeather(response.data)
+        })
     }
   }
 
   useEffect(() => {
     const getIpAddress = () => {
-      fetch('https://api.ipfind.com/me?auth=' + ipFindKey).then(response => {
-        return response.json()
-      }).then(data => {
-        setIp(data)
-        getWeather(data.latitude, data.longitude)
-      })
+      axios.get('https://api.ipfind.com/me?auth=' + ipFindKey)
+        .then(response => {
+          setIp(response.data)
+          getWeather(response.data.latitude, response.data.longitude)
+        })
     }
 
     if (window.location.hostname !== 'localhost') {
       getIpAddress()
     }
-
   }, [])
 
   const checkSystemCommands = (command: string) => {
@@ -144,7 +142,8 @@ const App = () => {
   }, [color])
 
   return (
-    <div className="app" onClick={() => setInputFocus}>
+    // @ts-ignore
+    <div className="app" onClick={setInputFocus}>
       {showHeader && <div className="header">
         <div className="welcome">Welcome to Sercan's Terminal <span>(v{version})</span></div>
         <div className="line"><strong>Date:</strong> {dateTime}</div>

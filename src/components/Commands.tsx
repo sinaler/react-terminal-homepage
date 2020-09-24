@@ -5,7 +5,6 @@ import { ChromePicker } from 'react-color'
 import { Context, SnakeGame } from 'react-game-snake'
 
 const Commands = (props: any) => {
-
   interface commandList {
     [key: string]: {
       text: string,
@@ -154,11 +153,11 @@ const Commands = (props: any) => {
           loopTime={200}
           pauseAllowed={true}
           restartAllowed={true}
-          onLoose={(context: Context) => alert(`You loosed with ${context.game.points} points.`)}
-          onPause={(context: Context) => alert("paused")}
-          onRestart={(context: Context) => alert("restarted")}
-          onResume={(context: Context) => alert("onResume")}
-          onWin={(context: Context) => alert(`You won with ${context.game.points} points.`)}
+          onLoose={(context: Context) => console.log(`You loosed with ${context.game.points} points.`)}
+          onPause={(context: Context) => console.log("paused")}
+          onRestart={(context: Context) => console.log("restarted")}
+          onResume={(context: Context) => console.log("onResume")}
+          onWin={(context: Context) => console.log(`You won with ${context.game.points} points.`)}
         />
       )
     case 'weather':

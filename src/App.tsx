@@ -41,7 +41,6 @@ const App = () => {
       temp: string,
     },
   }
-
   interface weather {
     current?: {
       temp: string,
@@ -57,8 +56,6 @@ const App = () => {
   // @ts-ignore TODO
   const [color, setColor] = useState(JSON.parse(localStorage.getItem('color')) || theme)
   const [dateTime, setDateTime] = useState('')
-
-  setInterval(() => setDateTime(new Date().toString().slice(0, -12)),1000)
 
   const getWeather = (latitude: string, longitude: string) => {
     if (latitude && longitude) {
@@ -82,6 +79,11 @@ const App = () => {
       getIpAddress()
     }
   }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => setDateTime(new Date().toString().slice(0, -12)),1000)
+    return () => clearInterval(interval);
+  }, []);
 
   const checkSystemCommands = (command: string) => {
     if (command === 'clear') {

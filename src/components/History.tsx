@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import styled from 'styled-components'
 import '../App.scss'
@@ -23,6 +24,14 @@ const History = (props: any) => (
     <Flex style={{marginBottom: '3px'}}>
       <FlexLeft className="bold">Version</FlexLeft>
       <FlexRight className="bold">Development History</FlexRight>
+    </Flex>
+    <Flex>
+      <FlexLeft>2.2.2</FlexLeft>
+      <FlexRight>
+        Added <button onClick={() => props.handleButtonClick('currency')}>currency</button> API and command<br />
+        Simplified API commands<br />
+        Added <button onClick={() => props.handleButtonClick('snake')}>snake</button> game :)<br />
+      </FlexRight>
     </Flex>
     <Flex>
       <FlexLeft>2.2.1</FlexLeft>
@@ -62,7 +71,7 @@ const History = (props: any) => (
       <FlexLeft>2.0.6</FlexLeft>
       <FlexRight>
         Improvements on IP and Weather API<br />
-        Added <button onClick={() => props.handleButtonClick('get ip')}>get ip</button> & <button onClick={() => props.handleButtonClick('get weather')}>get weather</button> commands<br />
+        Improved <button onClick={() => props.handleButtonClick('ip')}>ip</button> & <button onClick={() => props.handleButtonClick('weather')}>weather</button> commands<br />
         Better UI/UX for unix terminal feeling<br />
         Worked a lot on wording
       </FlexRight>
@@ -71,7 +80,7 @@ const History = (props: any) => (
       <FlexLeft>2.0.5</FlexLeft>
       <FlexRight>
         Added <button onClick={() => props.handleButtonClick('ip')}>ip</button> & <button onClick={() => props.handleButtonClick('location')}>location</button> API commands<br />
-        Added <button onClick={() => props.handleButtonClick('weather')}>weather</button>command for weather forecast API
+        Added <button onClick={() => props.handleButtonClick('weather')}>weather</button> command for weather forecast API
       </FlexRight>
     </Flex>
     <Flex>
@@ -117,8 +126,8 @@ const History = (props: any) => (
         Add picture API<br />
         Use Context<br />
         Add GSAP project<br />
-        Add some more games<br />
-        Add Currency api
+        Add some more games<br/>
+        Add Radio API<br/>
       </FlexRight>
     </Flex>
   </div>

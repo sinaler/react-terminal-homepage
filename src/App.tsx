@@ -6,7 +6,7 @@ import Commands from './components/Commands'
 import './App.scss'
 
 const App = () => {
-  const version = '2.2.1'
+  const version = '2.2.2'
   const theme = {text: '#FFFFFF', background: '#000000'}
 
   const useFocus = () => {
@@ -42,6 +42,7 @@ const App = () => {
       temp: string,
     },
   }
+
   interface weather {
     current?: {
       temp: string,
@@ -54,10 +55,18 @@ const App = () => {
 
   const [ip, setIp] = useState<ip>({})
   const [weather, setWeather] = useState<weather>({})
+  const [currency, setCurrency] = useState<any>({})
 
   // @ts-ignore TODO
   const [color, setColor] = useState(JSON.parse(localStorage.getItem('color')) || theme)
   const [dateTime, setDateTime] = useState('')
+
+  const getIp = () => {
+    axios.get('https://api.ipfind.com/me?auth=' + ipFindKey)
+      .then(response => {
+        setIp(response.data)
+      })
+  }
 
   const getWeather = (latitude: string, longitude: string) => {
     if (latitude && longitude) {
@@ -68,19 +77,32 @@ const App = () => {
     }
   }
 
+  const getCurrency = (base: string) => {
+    axios.get('https://api.exchangeratesapi.io/latest?symbols=TRY,USD,EUR,GBP,JPY,RUB,CNY,INR&base=' + base)
+      .then(response => {
+        setCurrency(response.data)
+      })
+  }
+
   useEffect(() => {
-    const getIpAddress = () => {
-      axios.get('https://api.ipfind.com/me?auth=' + ipFindKey)
-        .then(response => {
-          setIp(response.data)
-          getWeather(response.data.latitude, response.data.longitude)
-        })
+    const getAPIs = () => {
+      //getIp()
+      console.log()
     }
 
-    if (window.location.hostname !== 'localhost') {
-      getIpAddress()
+    if (window.location.hostname === 'localhost') {
+      getAPIs()
     }
   }, [])
+
+  useEffect(() => {
+    if(ip.latitude) {
+      setTimeout(() => {
+        //getWeather(ip.latitude!, ip.longitude!)
+        console.log(ip)
+      }, 1000)
+    }
+  }, [ip])
 
   const interval = useRef<number>()
 
@@ -113,16 +135,16 @@ const App = () => {
       setColor(theme)
     }
 
-    if (command === 'get ip') {
-      fetch('https://api.ipfind.com/me?auth=' + ipFindKey).then(response => {
-        return response.json()
-      }).then(data => {
-        setIp(data)
-      })
+    if (command === 'ip') {
+      getIp()
     }
 
-    if (command === 'get weather') {
+    if (command === 'weather') {
       getWeather(ip.latitude!, ip.longitude!)
+    }
+
+    if (command === 'currency') {
+      getCurrency('TRY')
     }
   }
 
@@ -158,6 +180,7 @@ const App = () => {
         handleButtonClick={handleButtonClick}
         dateTime={dateTime}
         version={version}
+        currency={currency}
       />}
 
       {inputField.map((command, index) =>
@@ -174,6 +197,7 @@ const App = () => {
                 handleButtonClick={handleButtonClick}
                 ip={ip}
                 weather={weather}
+                currency={currency}
                 dateTime={dateTime}
                 color={color}
                 setColor={setColor}

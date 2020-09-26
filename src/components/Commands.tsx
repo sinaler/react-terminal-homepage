@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import '../App.scss'
 import History from './History'
 import { ChromePicker } from 'react-color'
 import { Context, SnakeGame } from 'react-game-snake'
 
 const Commands = (props: any) => {
+  const [snakeMessage, setSnakeMessage] = useState('')
+
   interface commandList {
     [key: string]: {
       text: string,
@@ -28,11 +30,10 @@ const Commands = (props: any) => {
     cv: { text: 'Display pdf version CV/Resume of mine'},
     theme: { text: 'Change Terminal Theme colors', section: 'Fun Commands'},
     snake: { text: 'A simple Snake Game :)'},
-    ip: { text: 'Show your IP address', section: 'External API Commands'},
-    location: { text: 'Show detailed Location information'},
-    weather: { text: 'Show current Weather Forecast based on your IP'},
-    'get ip': { text: 'Fetches new IP address'},
-    'get weather': { text: 'Fetches updated Weather forecast'},
+    ip: { text: 'Fetch and show your IP address', section: 'External API Commands'},
+    location: { text: 'Fetch and show detailed Location information'},
+    weather: { text: 'Fetch and show current Weather Forecast(Requires IP)'},
+    currency: { text: 'Fetch and show currency rates with your local base(Requires IP))'}
   }
 
   switch(props.command) {
@@ -95,12 +96,6 @@ const Commands = (props: any) => {
       return(
         <div>This section is restricted to authorised users.</div>
       )
-    case 'ip':
-      return(
-        <div style={{width: '100%'}}>
-          <span>{props.ip.ip_address}</span>
-        </div>
-      )
     case 'theme':
       return(
         <div className="flex">
@@ -128,61 +123,52 @@ const Commands = (props: any) => {
           </div>
         </div>
       )
-    case 'location':
-      return(
-        <div>
-          {Object.keys(props.ip).map((key) => <div key={key} style={{width: '100%'}}>
-              <span style={{width: '115px', display: 'inline-block', textAlign: 'right', marginRight: '10px'}}>
-                {key.replace('_',' ').replace(/\b\w/g, c => c.toUpperCase())}:
-              </span>
-            <span>{props.ip[key]}</span>
-          </div>)}
-        </div>
-      )
     case 'snake':
       return(
-        <SnakeGame
-          colors={{
-            field: "#bdc3c7",
-            food: "#9b59b6",
-            snake: "#3498db",
-          }}
-          countOfHorizontalFields={20}
-          countOfVerticalFields={20}
-          fieldSize={20}
-          loopTime={200}
-          pauseAllowed={true}
-          restartAllowed={true}
-          onLoose={(context: Context) => console.log(`You loosed with ${context.game.points} points.`)}
-          onPause={(context: Context) => console.log("paused")}
-          onRestart={(context: Context) => console.log("restarted")}
-          onResume={(context: Context) => console.log("onResume")}
-          onWin={(context: Context) => console.log(`You won with ${context.game.points} points.`)}
-        />
+        <div style={{ display: 'block' }}>
+          <div>
+            <SnakeGame
+              colors={{
+                field: "#bdc3c7",
+                food: "#9b59b6",
+                snake: "#3498db",
+              }}
+              countOfHorizontalFields={30}
+              countOfVerticalFields={20}
+              fieldSize={15}
+              loopTime={120}
+              pauseAllowed={true}
+              restartAllowed={true}
+              onLoose={(context: Context) => setSnakeMessage(`You lost with ${context.game.points} points.`)}
+              onPause={(context: Context) => setSnakeMessage("Game paused")}
+              onRestart={(context: Context) => setSnakeMessage("Game restarted")}
+              onResume={(context: Context) => setSnakeMessage("Game resumed")}
+              onWin={(context: Context) => setSnakeMessage(`You won with ${context.game.points} points.`)}
+            />
+          </div>
+          <div>{snakeMessage}</div>
+        </div>
+      )
+    case 'location':
+    case 'ip':
+      return(
+        <div style={{width: '100%'}}>
+          <div>New IP address and location fetched</div>
+          <pre>{JSON.stringify(props.ip, null, 4)}</pre>
+        </div>
       )
     case 'weather':
       return(
-        <div>
-          {props.weather && props.weather.current && Object.keys(props.weather.current).map((key) => (
-            key !== 'weather' && (<div key={key} style={{width: '100%'}}>
-              <span style={{width: '115px', display: 'inline-block', textAlign: 'right', marginRight: '10px'}}>
-                {key.replace('_',' ').replace(/\b\w/g, c => c.toUpperCase())}:
-              </span>
-              <span>{props.weather.current[key]}</span>
-            </div>)
-          ))}
+        <div style={{width: '100%'}}>
+          <div>Updated weather forecast fetched</div>
+          <pre>{JSON.stringify(props.weather.current, null, 4)}</pre>
         </div>
       )
-    case 'get ip':
+    case 'currency':
       return(
         <div style={{width: '100%'}}>
-          <span>New IP address and location fetched</span>
-        </div>
-      )
-    case 'get weather':
-      return(
-        <div style={{width: '100%'}}>
-          <span>Updated weather forecast fetched</span>
+          <div>Updated currency rates fetched</div>
+          <pre>{JSON.stringify(props.currency, null, 4)}</pre>
         </div>
       )
     default:

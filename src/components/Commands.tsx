@@ -3,6 +3,8 @@ import '../App.scss'
 import History from './History'
 import { ChromePicker } from 'react-color'
 import { Context, SnakeGame } from 'react-game-snake'
+// @ts-ignore
+import Tetris from 'react-tetris'
 
 const Commands = (props: any) => {
   const [snakeMessage, setSnakeMessage] = useState('')
@@ -28,8 +30,9 @@ const Commands = (props: any) => {
     linkedin: { text: 'Display LinkedIn link address of my profile'},
     github: { text: 'Display Github link address of my profile'},
     cv: { text: 'Display pdf version CV/Resume of mine'},
-    theme: { text: 'Change Terminal Theme colors', section: 'Fun Commands'},
-    snake: { text: 'A simple Snake Game :)'},
+    theme: { text: 'Change terminal Theme colors', section: 'Fun Commands'},
+    snake: { text: 'A simple Snake Game'},
+    tetris: { text: 'A classic Tetris Game'},
     ip: { text: 'Fetch and show your IP address', section: 'External API Commands'},
     location: { text: 'Fetch and show detailed Location information'},
     weather: { text: 'Fetch and show current Weather Forecast(Requires IP)'},
@@ -147,6 +150,22 @@ const Commands = (props: any) => {
             />
           </div>
           <div>{snakeMessage}</div>
+        </div>
+      )
+    case 'tetris':
+      return(
+        <div style={{ display: 'block' }}>
+          <Tetris>
+            {/* @ts-ignore */}
+            {({ HeldPiece, Gameboard, PieceQueue, points, linesCleared }) => {
+              return (
+                <div>
+                  <Gameboard />
+                  <div style={{marginTop: '10px'}}>Points: {points}, Lines: {linesCleared}</div>
+                </div>
+              );
+            }}
+          </Tetris>
         </div>
       )
     case 'location':

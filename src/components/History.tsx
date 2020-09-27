@@ -26,11 +26,17 @@ const History = (props: any) => (
       <FlexRight className="bold">Development History</FlexRight>
     </Flex>
     <Flex>
+      <FlexLeft>2.2.3</FlexLeft>
+      <FlexRight>
+        Added <button onClick={() => props.handleButtonClick('tetris')}>tetris</button> game<br />
+      </FlexRight>
+    </Flex>
+    <Flex>
       <FlexLeft>2.2.2</FlexLeft>
       <FlexRight>
         Added <button onClick={() => props.handleButtonClick('currency')}>currency</button> API and command<br />
         Simplified API commands<br />
-        Added <button onClick={() => props.handleButtonClick('snake')}>snake</button> game :)<br />
+        Added <button onClick={() => props.handleButtonClick('snake')}>snake</button> game<br />
         Added email API which allows Terminal to send transactional emails
       </FlexRight>
     </Flex>
@@ -128,6 +134,9 @@ const History = (props: any) => (
         Add GSAP project<br />
         Add some more games<br/>
         Add Radio API<br/>
+        Add Covid Data<br/>
+        Add login and auth commands<br/>
+        Clean-up TS errors<br/>
       </FlexRight>
     </Flex>
   </div>

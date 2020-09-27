@@ -24,7 +24,7 @@ a {
 
 button {
   cursor: pointer;
-  background-color: #333;
+  background-color: #444;
   color: white;
   padding: 0 3px;
   border: 0;
@@ -52,6 +52,7 @@ button:hover {
   padding: 0;
   text-transform: lowercase;
   background-color: transparent;
+  width: 300px;
 }
 
 .result {
@@ -74,4 +75,40 @@ button:hover {
 
 .flex-right {
   flex: 1;
+}
+
+.game-board {
+  border-collapse: collapse;
+}
+
+.game-block {
+  margin: 0;
+  padding: 0;
+  width: 21px;
+  height: 19px;
+  border: 1px solid #ddd;
+}
+.piece-i {
+  background-color: #ec858b;
+}
+.piece-j {
+  background-color: #f1b598;
+}
+.piece-l {
+  background-color: #f8efae;
+}
+.piece-o {
+  background-color: #b5a677;
+}
+.piece-s {
+  background-color: #816e56;
+}
+.piece-t {
+  background-color: #b77c72;
+}
+.piece-z {
+  background-color: #e3be58;
+}
+.piece-preview {
+  background-color: #eee;
 }

@@ -9,27 +9,30 @@ import './App.scss'
 emailjs.init(emailJSKey)
 
 const App = () => {
-  const version = '2.2.2'
+  const version = '2.2.3'
   const theme = {text: '#FFFFFF', background: '#000000'}
+
+  const [keyPress, setKeyPress] = useState('')
+  const [inputField, setInputField] = useState<string[]>([])
+  const [showHeader, setShowHeader] = useState(true)
 
   const useFocus = () => {
     const htmlElRef = useRef<HTMLInputElement>(null)
     const setFocus = () => {
-      const x = window.scrollX, y = window.scrollY;
-      htmlElRef.current && htmlElRef.current.focus()
-      window.scrollTo(x, y);
+      if (inputField.indexOf('tetris') === -1) {
+        const x = window.scrollX, y = window.scrollY;
+        htmlElRef.current && htmlElRef.current.focus()
+        window.scrollTo(x, y);
+      }
     }
     return [ htmlElRef, setFocus ] as const
   }
 
+  const [inputRef, setInputFocus] = useFocus()
+
   const updateScroll = () => {
     window.scrollTo(0,document.body.scrollHeight)
   }
-
-  const [keyPress, setKeyPress] = useState('')
-  const [inputField, setInputField] = useState<string[]>([])
-  const [inputRef, setInputFocus] = useFocus()
-  const [showHeader, setShowHeader] = useState(true)
 
   interface ip {
     latitude?: string,
@@ -126,7 +129,7 @@ const App = () => {
   }, [ip])
 
   const checkSystemCommands = (command: string) => {
-    if (command === 'snake') {
+    if (command === 'snake' || command === 'tetris') {
       setTimeout(() => clearInterval(interval.current), 1000)
     }
 

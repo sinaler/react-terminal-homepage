@@ -1,9 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {openWeatherMapKey, ipFindKey, pepiPostKey} from './config'
+import {openWeatherMapKey, ipFindKey, emailJSKey} from './config'
 import axios from 'axios'
+import emailjs from 'emailjs-com'
 import Header from './components/Header'
 import Commands from './components/Commands'
 import './App.scss'
+
+emailjs.init(emailJSKey)
 
 const App = () => {
   const version = '2.2.2'
@@ -61,6 +64,15 @@ const App = () => {
   const [color, setColor] = useState(JSON.parse(localStorage.getItem('color')) || theme)
   const [dateTime, setDateTime] = useState('')
 
+  const interval = useRef<number>()
+
+  useEffect(() => {
+    interval.current = setInterval(() => {
+      setDateTime(new Date().toString().slice(0, -12))
+    },1000)
+    return () => clearInterval(interval.current);
+  });
+
   const getIp = () => {
     axios.get('https://api.ipfind.com/me?auth=' + ipFindKey)
       .then(response => {
@@ -84,56 +96,27 @@ const App = () => {
       })
   }
 
-  const sendEmail = () => {
-    const data = JSON.stringify({
-      "from": {
-        "email": "sercan@pepisandbox.com",
-        "name": "sercan"
-      },
-      "subject": "New User",
-      "content": [
-        {
-          "type": "html",
-          "value": "Hello Sercan"
-        }
-      ],
-      "personalizations": [
-        {
-          "to": [
-            {
-              "email": "sercan@gmail.com",
-              "name": "Sercan Inaler"
-            }
-          ]
-        }
-      ]
-    });
-
-    const xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === this.DONE) {
-        console.log(this.responseText);
-      }
-    });
-    xhr.open("POST", "https://api.pepipost.com/v5/mail/send");
-    xhr.setRequestHeader("api_key", pepiPostKey);
-    xhr.setRequestHeader("content-type", "application/json");
-
-    xhr.send(data);
+  const sendEmail = (ip: ip) => {
+    if (ip.ip_address) {
+      emailjs.send('sercan', 'template_abe34ts', ip)
+        .then((response) => {
+          //console.log('Email Success!', response.status, response.text);
+        }, (error) => {
+          console.log('Email Failed: ', error);
+        });
+    }
   }
 
   useEffect(() => {
     const getAPIs = () => {
       if (!ip.ip_address) {
         getIp()
-        console.log(ip)
       }
 
       if (ip.ip_address) {
         getWeather(ip.latitude!, ip.longitude!)
         getCurrency(ip.currency!)
+        sendEmail(ip)
       }
     }
 
@@ -141,15 +124,6 @@ const App = () => {
       getAPIs()
     }
   }, [ip])
-
-  const interval = useRef<number>()
-
-  useEffect(() => {
-    interval.current = setInterval(() => {
-      setDateTime(new Date().toString().slice(0, -12))
-    },1000)
-    return () => clearInterval(interval.current);
-  });
 
   const checkSystemCommands = (command: string) => {
     if (command === 'snake') {
@@ -174,7 +148,7 @@ const App = () => {
     }
 
     if (command === 'send email') {
-      sendEmail()
+      sendEmail(ip)
     }
 
     if (command === 'ip') {

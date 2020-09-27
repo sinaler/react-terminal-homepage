@@ -31,6 +31,7 @@ const History = (props: any) => (
         Added <button onClick={() => props.handleButtonClick('currency')}>currency</button> API and command<br />
         Simplified API commands<br />
         Added <button onClick={() => props.handleButtonClick('snake')}>snake</button> game :)<br />
+        Added email API which allows Terminal to send transactional emails
       </FlexRight>
     </Flex>
     <Flex>
@@ -122,7 +123,6 @@ const History = (props: any) => (
       <FlexRight>
         Support console commands<br />
         Add loaders<br />
-        Add e-mail API<br />
         Add picture API<br />
         Use Context<br />
         Add GSAP project<br />

@@ -229,7 +229,7 @@ const App = () => {
 
       <div className="line split" style={{ paddingBottom: 25, paddingTop: 15 }}>
         <div className="user">[user@inaler.com]<span style={{marginLeft: '5px'}}>#</span></div>
-        <div>
+        <div className="inputHolder">
           <input className="input"
                  onKeyUp={onKeyUp}
                  onChange={onKeyUp}

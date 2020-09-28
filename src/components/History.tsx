@@ -9,7 +9,7 @@ const Flex = styled.div`
 `
 
 const FlexLeft = styled.div`
-  width: 100px;
+  width: 72px;
   text-align: right;
   margin-right: 15px;
 `
@@ -133,7 +133,6 @@ const History = (props: any) => (
         Add GSAP project<br />
         Add some more games<br/>
         Add Radio API<br/>
-        Add Covid Data<br/>
         Add login and auth commands<br/>
         Clean-up TS errors<br/>
       </FlexRight>

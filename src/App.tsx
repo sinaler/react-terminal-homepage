@@ -125,7 +125,7 @@ const App = () => {
       getAPIs()
     }
 
-    getCurrency(ip.currency! || 'EUR')
+    getCurrency(/*ip.currency! || */'EUR')
     getWeather(ip.latitude! || '39.6443', ip.longitude! || '27.8116')
   }, [ip])
 
@@ -207,7 +207,7 @@ const App = () => {
         <div key={command + index} style={{marginTop: '15px'}}>
           <div className="line split">
             <div className="user">[user@inaler.com]<span style={{marginLeft: '5px'}}>#</span></div>
-            <div>{command}</div>
+            <div className="inputHolder">{command}</div>
           </div>
 
           {command !== '' && <div className="line split">

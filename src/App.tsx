@@ -117,8 +117,6 @@ const App = () => {
       }
 
       if (ip.ip_address) {
-        getWeather(ip.latitude!, ip.longitude!)
-        getCurrency(ip.currency!)
         sendEmail(ip)
       }
     }
@@ -126,6 +124,9 @@ const App = () => {
     if (window.location.hostname !== 'localhost') {
       getAPIs()
     }
+
+    getCurrency(ip.currency! || 'TRY')
+    getWeather(ip.latitude! || '39.6443', ip.longitude! || '27.8116')
   }, [ip])
 
   const checkSystemCommands = (command: string) => {

@@ -202,7 +202,7 @@ const Commands = (props: any) => {
       return(
         <div style={{width: '100%'}}>
           <div>Updated covid-19 numbers fetched</div>
-          <pre>{JSON.stringify(props.covid19, null, 4)}</pre>
+          <pre>{JSON.stringify(props.covid19.Global, null, 4)}</pre>
         </div>
       )
     default:

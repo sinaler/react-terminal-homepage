@@ -35,8 +35,9 @@ const Commands = (props: any) => {
     tetris: { text: 'A classic Tetris Game'},
     ip: { text: 'Fetch and show your IP address', section: 'External API Commands'},
     location: { text: 'Fetch and show detailed Location information'},
-    weather: { text: 'Fetch and show current Weather Forecast(Requires IP)'},
-    currency: { text: 'Fetch and show currency rates with your local base(Requires IP))'}
+    weather: { text: 'Fetch and show current Weather Forecast(Requires IP and Coordinates)'},
+    currency: { text: 'Fetch and show Currency rates with your local base'},
+    covid19: { text: 'Fetch and show actual Covid-19(Corona Virus) pandemic numbers'}
   }
 
   switch(props.command) {
@@ -188,6 +189,13 @@ const Commands = (props: any) => {
         <div style={{width: '100%'}}>
           <div>Updated currency rates fetched</div>
           <pre>{JSON.stringify(props.currency, null, 4)}</pre>
+        </div>
+      )
+    case 'covid19':
+      return(
+        <div style={{width: '100%'}}>
+          <div>Updated covid-19 numbers fetched</div>
+          <pre>{JSON.stringify(props.covid19, null, 4)}</pre>
         </div>
       )
     default:

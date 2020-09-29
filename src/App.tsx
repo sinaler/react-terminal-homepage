@@ -62,6 +62,7 @@ const App = () => {
   const [ip, setIp] = useState<ip>({})
   const [weather, setWeather] = useState<weather>({})
   const [currency, setCurrency] = useState<any>({})
+  const [covid19, setCovid19] = useState<any>({})
 
   // @ts-ignore TODO
   const [color, setColor] = useState(JSON.parse(localStorage.getItem('color')) || theme)
@@ -70,6 +71,8 @@ const App = () => {
   const interval = useRef<number>()
 
   useEffect(() => {
+    setDateTime(new Date().toString().slice(0, -12))
+
     interval.current = setInterval(() => {
       setDateTime(new Date().toString().slice(0, -12))
     },1000)
@@ -96,6 +99,13 @@ const App = () => {
     axios.get('http://data.fixer.io/api/latest?access_key=' + fixerIOKey + '&symbols=USD,TRY,EUR,GBP,JPY,RUB,CNY,INR&base=' + base)
       .then(response => {
         setCurrency(response.data)
+      })
+  }
+
+  const getCovid19 = () => {
+    axios.get('https://api.covid19api.com/summary')
+      .then(response => {
+        setCovid19(response.data)
       })
   }
 
@@ -127,6 +137,7 @@ const App = () => {
 
     getCurrency(/*ip.currency! || */'EUR')
     getWeather(ip.latitude! || '39.6443', ip.longitude! || '27.8116')
+    getCovid19()
   }, [ip])
 
   const checkSystemCommands = (command: string) => {
@@ -166,6 +177,10 @@ const App = () => {
     if (command === 'currency') {
       getCurrency('TRY')
     }
+
+    if (command === 'covid19') {
+      getCovid19()
+    }
   }
 
   const handleButtonClick = (value: string) => {
@@ -175,7 +190,7 @@ const App = () => {
   }
 
   const onKeyUp = (event: any) => {
-    const value = event.target.value.toLowerCase()
+    const value = event.target.value.toLowerCase().trim()
     setKeyPress(value)
 
     if (event.key === 'Enter' || event.keyCode === 13) {
@@ -201,6 +216,7 @@ const App = () => {
         dateTime={dateTime}
         version={version}
         currency={currency}
+        covid19={covid19}
       />}
 
       {inputField.map((command, index) =>
@@ -221,6 +237,7 @@ const App = () => {
                 dateTime={dateTime}
                 color={color}
                 setColor={setColor}
+                covid19={covid19}
               />
             </div>
           </div>}

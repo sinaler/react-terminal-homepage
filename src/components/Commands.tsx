@@ -67,12 +67,19 @@ const Commands = (props: any) => {
     case 'info':
       return(
         <div>
-          A Short Information<br /><br />
+          Hi :)<br /><br />
+
+          I am a software engineer (frontend with backend experience) mostly focused on building
+          cross-platform apps to bootstrap projects and ideas. I have long years of experience on
+          various startups and companies. Nowadays I enjoy Javascript and React(Native as well) & Vue
+          with modern stack.<br /><br />
+
+          About the Terminal<br /><br />
           Terminal project is made by React(v17) as a personal reference.<br />
           You can use <button onClick={() => props.handleButtonClick('help')}>help</button> command to get the list of available commands and it's up to you to discover the hidden and funny sections of my website.<br />
           There can be limitations to access some data.<br />
           You may need to login or get authorization from me personally to access limit sections.<br /><br />
-          Cheers,<br />
+          Cheers,<br /><br />
           Sercan
         </div>
       )

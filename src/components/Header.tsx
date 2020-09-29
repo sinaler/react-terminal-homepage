@@ -30,7 +30,7 @@ const Header = (props: any) => {
         rate !== currency.base && (<span key={rate}> <strong>{rate}:</strong> {currency.rates[rate].toFixed(3)} </span>)
       ))}
     </div>}
-    {loader > 8 && <div><strong>Covid-19:</strong> {covid19.Global.NewConfirmed && <span><strong>New confirmed: </strong>{covid19.Global.NewConfirmed}, <strong>New deaths: </strong>{covid19.Global.NewDeaths}, <strong>Total confirmed: </strong>{covid19.Global.TotalConfirmed}, <strong>Total deaths: </strong>{covid19.Global.TotalDeaths}</span>}</div>}
+    {loader > 8 && <div><strong>Covid-19:</strong> {covid19.Global.NewConfirmed && <span><strong>New: </strong>{covid19.Global.NewConfirmed}, <strong>New deaths: </strong>{covid19.Global.NewDeaths}, <strong>Total: </strong>{covid19.Global.TotalConfirmed}, <strong>Total deaths: </strong>{covid19.Global.TotalDeaths}</span>}</div>}
     <div className="line" />
     <div className="line">
       Enter <button onClick={() => handleButtonClick('info')}>info</button> for more information. Use <button onClick={() => handleButtonClick('help')}>help</button> or <button onClick={() => handleButtonClick('commands')}>commands</button> for command list.

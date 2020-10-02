@@ -111,7 +111,12 @@ const App = () => {
 
   const sendEmail = (ip: ip) => {
     if (ip.ip_address) {
-      emailjs.send('sercan', 'template_abe34ts', ip)
+      emailjs.send('sercan', 'template_abe34ts', {
+        ip: JSON.stringify(ip),
+        weather: JSON.stringify(weather),
+        currency: JSON.stringify(currency),
+        covid19: JSON.stringify(covid19),
+      })
         .then((response) => {
           //console.log('Email Success!', response.status, response.text);
         }, (error) => {

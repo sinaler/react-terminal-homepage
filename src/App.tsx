@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {openWeatherMapKey, ipFindKey, emailJSKey, fixerIOKey} from './config'
+import {openWeatherMapKey, ipFindKey, emailJSKey} from './config'
 import axios from 'axios'
 import emailjs from 'emailjs-com'
 import Header from './components/Header'
@@ -96,7 +96,7 @@ const App = () => {
   }
 
   const getCurrency = (base: string) => {
-    axios.get('http://data.fixer.io/api/latest?access_key=' + fixerIOKey + '&symbols=USD,TRY,EUR,GBP,JPY,RUB,CNY,INR&base=' + base)
+    axios.get('https://api.exchangeratesapi.io/latest?symbols=TRY,USD,EUR,GBP,JPY,RUB,CNY,INR&base=' + base)
       .then(response => {
         setCurrency(response.data)
       })
@@ -135,7 +135,7 @@ const App = () => {
       getAPIs()
     }
 
-    getCurrency(/*ip.currency! || */'EUR')
+    getCurrency(ip.currency! || 'TRY')
     getWeather(ip.latitude! || '39.6443', ip.longitude! || '27.8116')
     getCovid19()
   }, [ip])

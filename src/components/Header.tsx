@@ -27,7 +27,7 @@ const Header = (props: any) => {
     {loader > 6 && <div><strong>Weather:</strong> {weather.current && <span><strong>Temp:</strong> {weather.current.temp}C, <strong>Feels like:</strong> {weather.current.feels_like}C, <strong>Clouds:</strong> {weather.current.clouds}%, <strong>Humidity:</strong> {weather.current.humidity}%, <strong>Wind:</strong> {weather.current.wind_speed}m/s, <strong>UV:</strong> {weather.current.uvi}</span>}</div>}
     {loader > 7 && <div><strong>Currency{currency.rates && <span>({currency.base})</span>}:</strong>
       {currency.rates && Object.keys(currency.rates).map((rate) => (
-        rate !== currency.base && (<span key={rate}> <strong>{rate}:</strong> {currency.rates[rate].toFixed(3)} </span>)
+        rate !== currency.base && (<span key={rate}> <strong>{rate}:</strong> {(1 / currency.rates[rate]).toFixed(3)} </span>)
       ))}
     </div>}
     {loader > 8 && <div><strong>Covid-19:</strong> {covid19.Global.NewConfirmed && <span><strong>New: </strong>{covid19.Global.NewConfirmed}, <strong>New deaths: </strong>{covid19.Global.NewDeaths}, <strong>Total: </strong>{covid19.Global.TotalConfirmed}, <strong>Total deaths: </strong>{covid19.Global.TotalDeaths}</span>}</div>}

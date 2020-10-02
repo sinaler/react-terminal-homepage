@@ -138,6 +138,7 @@ const History = (props: any) => (
         Add some more games<br/>
         Add Radio API<br/>
         Add login and auth commands<br/>
+        Export all data from API's<br/>
       </FlexRight>
     </Flex>
   </div>

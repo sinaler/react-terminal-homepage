@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build && rm build/asset-manifest.json && rm build/service-worker.js && rm build/.DS_Store",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

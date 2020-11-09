@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import '../App.scss'
 import History from './History'
+import Windows from './Windows'
 import { ChromePicker } from 'react-color'
 import { Context, SnakeGame } from 'react-game-snake'
 // @ts-ignore
@@ -25,6 +26,7 @@ const Commands = (props: any) => {
     reload: { text: 'Reloads the whole Terminal while keeping settings'},
     reset: { text: 'Reset all settings and cookies'},
     history: { text: 'Shows the Terminal version history'},
+    win: { text: 'Switch to Windows'},
     source: { text: 'Show the source file of the Terminal', section: 'Profile Commands'},
     email: { text: 'Display email of mine'},
     linkedin: { text: 'Display LinkedIn link address of my profile'},
@@ -205,6 +207,8 @@ const Commands = (props: any) => {
           <pre>{JSON.stringify(props.covid19.Global, null, 4)}</pre>
         </div>
       )
+    case 'win':
+      return <Windows />
     default:
       return(props.command + ': command not found')
   }

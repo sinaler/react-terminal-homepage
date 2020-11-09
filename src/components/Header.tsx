@@ -20,7 +20,7 @@ const Header = (props: any) => {
     {loader <= 9 && <div><strong style={{textDecoration: 'underline'}}>Your information:</strong> Loading({loader}/9)</div>}
     {loader > 9 ? <div><strong style={{textDecoration: 'underline'}}>Your information:</strong></div> : ''}
     {loader > 1 && <div><strong>Date:</strong> {dateTime && <span>{dateTime} <strong>Online Since:</strong> {loader}s </span>}</div>}
-    {loader > 2 && <div><strong>Platform:</strong> {navigator.platform}, <strong>Resolution:</strong> {window.screen.width}x{window.screen.height}px, <strong>Depth:</strong> {window.screen.pixelDepth}px</div>}
+    {loader > 2 && <div><strong>Platform:</strong> {navigator.platform}, <strong>Resolution:</strong> {window.screen.width}x{window.screen.height}px, <strong>Viewport:</strong> {Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)}x{Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)}px, <strong>Depth:</strong> {window.screen.pixelDepth}px</div>}
     {loader > 3 && <div><strong>User agent: </strong> {navigator.userAgent}</div>}
     {loader > 4 && <div><strong>Ip address:</strong> {ip.ip_address && <span> {ip.ip_address}, <strong>Local languages:</strong> {ip.languages && ip.languages.map((language: string) => <span key={language}> {language}</span>)}, <strong>Currency:</strong> {ip.currency}</span>}</div>}
     {loader > 5 && <div><strong>Location:</strong> {ip.ip_address && <span>{ip.city}({ip.region_code}), {ip.country}, {ip.continent}, <strong>Coordinates:</strong> {ip.latitude}, {ip.longitude}</span>}</div>}
@@ -34,6 +34,9 @@ const Header = (props: any) => {
     <div className="line" />
     <div className="line">
       Enter <button onClick={() => handleButtonClick('info')}>info</button> for more information. Use <button onClick={() => handleButtonClick('help')}>help</button> or <button onClick={() => handleButtonClick('commands')}>commands</button> for command list.
+    </div>
+    <div className="line">
+      If you can't use Terminal, switch to Windows by typing <button onClick={() => handleButtonClick('win')}>win</button> now!
     </div>
   </div>
 )}

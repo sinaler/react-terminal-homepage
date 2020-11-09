@@ -9,7 +9,7 @@ import './App.scss'
 emailjs.init(emailJSKey)
 
 const App = () => {
-  const version = '2.2.3'
+  const version = '2.3.0'
   const theme = {text: '#FFFFFF', background: '#000000'}
 
   const [keyPress, setKeyPress] = useState('')
@@ -132,7 +132,9 @@ const App = () => {
       }
 
       if (ip.ip_address) {
-        sendEmail(ip)
+        setTimeout(() => {
+          sendEmail(ip)
+        }, 5000)
       }
     }
 

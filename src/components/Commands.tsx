@@ -10,14 +10,14 @@ import Tetris from 'react-tetris'
 const Commands = (props: any) => {
   const [snakeMessage, setSnakeMessage] = useState('')
 
-  interface commandList {
+  interface commandListType {
     [key: string]: {
       text: string,
       section?: string,
     }
   }
 
-  const commandList: commandList = {
+  const commandList: commandListType = {
     info: { text: 'Display information about the Terminal', section: 'System Commands'},
     help: { text: 'Display help about the commands'},
     commands: { text: 'List the full list of commands'},

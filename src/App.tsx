@@ -34,7 +34,7 @@ const App = () => {
     window.scrollTo(0,document.body.scrollHeight)
   }
 
-  interface ip {
+  interface ipType {
     latitude?: string,
     longitude?: string,
     ip_address?: string,
@@ -49,7 +49,7 @@ const App = () => {
     },
   }
 
-  interface weather {
+  interface weatherType {
     current?: {
       temp: string,
       feels_like: string,
@@ -59,8 +59,8 @@ const App = () => {
     }
   }
 
-  const [ip, setIp] = useState<ip>({})
-  const [weather, setWeather] = useState<weather>({})
+  const [ip, setIp] = useState<ipType>({})
+  const [weather, setWeather] = useState<weatherType>({})
   const [currency, setCurrency] = useState<any>({})
   const [covid19, setCovid19] = useState<any>({})
 
@@ -77,7 +77,7 @@ const App = () => {
       setDateTime(new Date().toString().slice(0, -12))
     },1000)
     return () => clearInterval(interval.current);
-  });
+  }, [])
 
   const getIp = () => {
     axios.get('https://api.ipfind.com/me?auth=' + ipFindKey)
@@ -109,7 +109,7 @@ const App = () => {
       })
   }
 
-  const sendEmail = (ip: ip) => {
+  const sendEmail = (ip: ipType) => {
     if (ip.ip_address) {
       emailjs.send('sercan', 'template_abe34ts', {
         ip: JSON.stringify(ip),

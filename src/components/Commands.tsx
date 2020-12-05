@@ -208,7 +208,7 @@ const Commands = (props: any) => {
         </div>
       )
     case 'win':
-      return <Windows />
+      return <Windows exit={() => props.handleButtonClick('reset')} />
     case 'wooga':
       window.location.href = '/wooga'
       break

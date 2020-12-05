@@ -93,27 +93,70 @@ button:hover {
   height: 19px;
   border: 1px solid #ddd;
 }
+
 .piece-i {
   background-color: #ec858b;
 }
+
 .piece-j {
   background-color: #f1b598;
 }
+
 .piece-l {
   background-color: #f8efae;
 }
+
 .piece-o {
   background-color: #b5a677;
 }
+
 .piece-s {
   background-color: #816e56;
 }
+
 .piece-t {
   background-color: #b77c72;
 }
+
 .piece-z {
   background-color: #e3be58;
 }
+
 .piece-preview {
   background-color: #eee;
+}
+
+#windows {
+  background: url("./components/windows/bcg.jpg") no-repeat;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  .taskbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 37px;
+    background-color: #265DDC;
+    box-shadow: inset 0 8px 10px -1px rgba(255, 255, 255, 0.3);
+  }
+
+  .start {
+    background: url("./components/windows/start.png") no-repeat;
+    height: 37px;
+    width: 110px;
+    background-size: 100% 100%;
+    display: block;
+    margin-left: -2px;
+    cursor: pointer;
+  }
+
+  #error {
+    cursor: move;
+    position: absolute;
+    background: transparent;
+  }
 }

@@ -209,6 +209,9 @@ const Commands = (props: any) => {
       )
     case 'win':
       return <Windows />
+    case 'wooga':
+      window.location.href = '/wooga'
+      break
     default:
       return(props.command + ': command not found')
   }

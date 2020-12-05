@@ -131,6 +131,9 @@ const History = (props: any) => (
     <Flex>
       <FlexLeft>Todo's</FlexLeft>
       <FlexRight>
+        Fix currency date & base<br />
+        Add local covid data<br />
+        Add windows<br />
         Support console commands<br />
         Add picture API<br />
         Use Context<br />

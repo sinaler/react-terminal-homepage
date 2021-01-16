@@ -144,7 +144,6 @@ const App = () => {
 
     getCurrency(ip.currency! || 'TRY')
     getWeather(ip.latitude! || '39.6443', ip.longitude! || '27.8116')
-    getCovid19()
   }, [ip])
 
   const checkSystemCommands = (command: string) => {
